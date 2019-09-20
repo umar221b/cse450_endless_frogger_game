@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private bool handled = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,25 +14,38 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (handled)
         {
-            transform.position += new Vector3(0, 0.2f, 0);
 
+
+            StartCoroutine(Example());
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+
+                transform.position += new Vector3(0, 0.9f, 0);
+
+            }
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                transform.position += new Vector3(0, -0.2f, 0);
+
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                transform.position += new Vector3(0.2f, 0, 0);
+
+            }
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                transform.position += new Vector3(-0.2f, 0, 0);
+
+            }
         }
-        if (Input.GetKey(KeyCode.DownArrow))
+        IEnumerator Example()
         {
-            transform.position += new Vector3(0, -0.2f, 0);
-
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            transform.position += new Vector3(0.2f, 0, 0);
-
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            transform.position += new Vector3(-0.2f, 0, 0);
-
+            handled = false;
+            yield return new WaitForSecondsRealtime(.25f);
+            handled = true;
         }
     }
 }
