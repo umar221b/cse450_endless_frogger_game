@@ -5,10 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private bool handled = true;
+    Rigidbody2D _rb;
     // Start is called before the first frame update
     void Start()
     {
-
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -22,22 +23,22 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.UpArrow))
             {
 
-                transform.position += new Vector3(0, 0.9f, 0);
+                transform.position += new Vector3(0, 0.5f, 0);
 
             }
             if (Input.GetKey(KeyCode.DownArrow))
             {
-                transform.position += new Vector3(0, -0.2f, 0);
+                transform.position += new Vector3(0, -0.5f, 0);
 
             }
             if (Input.GetKey(KeyCode.RightArrow))
             {
-                transform.position += new Vector3(0.2f, 0, 0);
+                transform.position += new Vector3(0.5f, 0, 0);
 
             }
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                transform.position += new Vector3(-0.2f, 0, 0);
+                transform.position += new Vector3(-0.5f, 0, 0);
 
             }
         }
