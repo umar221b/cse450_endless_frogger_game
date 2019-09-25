@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MovingObject
 {
-
     bool moving = false;
 
     // Update is called once per frame
