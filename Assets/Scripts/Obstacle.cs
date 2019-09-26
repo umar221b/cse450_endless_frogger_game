@@ -4,17 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Obstacle : MonoBehaviour
 {
-    
-
-    // Start is called before the first frame update
     private void OnCollisionEnter2D(Collision2D other)
     {
-        
-        if (other.gameObject.GetComponent<PlayerController>())
+      print("Collision enter 2d is on!");
+        if (other.gameObject.GetComponent<GridMove>())
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        } 
-        
+        }
+
     }
-    
+
 }
