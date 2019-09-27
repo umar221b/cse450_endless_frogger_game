@@ -1364,6 +1364,7 @@ GameObject:
   - component: {fileID: 1948600889}
   - component: {fileID: 1948600890}
   - component: {fileID: 1948600888}
+  - component: {fileID: 1948600891}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -1447,14 +1448,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37872a118a6f44e2db12ad6d9f850a0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteUp: {fileID: -4184451437676947331, guid: b4ba096ab0ecdf64389f5d548b7b9320,
-    type: 3}
-  spriteDown: {fileID: -4090856456937798016, guid: b4ba096ab0ecdf64389f5d548b7b9320,
-    type: 3}
-  spriteRight: {fileID: 7286975702765037990, guid: b4ba096ab0ecdf64389f5d548b7b9320,
-    type: 3}
-  spriteLeft: {fileID: -4086321566686212636, guid: b4ba096ab0ecdf64389f5d548b7b9320,
-    type: 3}
 --- !u!50 &1948600889
 Rigidbody2D:
   serializedVersion: 4
@@ -1502,3 +1495,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9, y: 1.05}
   m_EdgeRadius: 0
+--- !u!95 &1948600891
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948600885}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d43b9e78c5ac1e64c85a89ff6193948e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
