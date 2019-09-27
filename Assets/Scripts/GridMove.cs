@@ -3,13 +3,7 @@ using UnityEngine;
 
 class GridMove : MonoBehaviour {
 
-  public Sprite spriteUp;
-  public Sprite spriteDown;
-  public Sprite spriteRight;
-  public Sprite spriteLeft;
-
-  private SpriteRenderer spriteRenderer;
-
+    Animator anim;
 
   private float moveSpeed = 5f;
   private float gridSize = 1f;
@@ -26,38 +20,35 @@ class GridMove : MonoBehaviour {
   private float factor = 1f;
 
   void Start() {
-    spriteRenderer = GetComponent<SpriteRenderer>();
-  }
+
+        anim = GetComponent<Animator>();
+    }
   public void Update() {
-    Sprite newSprite = spriteRenderer.sprite;
     input = new Vector2(0, 0);
 
     if (!isMoving) {
       if (Input.GetKey(KeyCode.UpArrow))
       {
-        newSprite = spriteUp;
-        input.y = 1;
+                anim.Play("moveUp");
+                input.y = 1;
       }
       if (Input.GetKey(KeyCode.DownArrow))
       {
-        newSprite = spriteDown;
-        input.y = -1;
+                anim.Play("moveDown");
+                input.y = -1;
       }
       if (Input.GetKey(KeyCode.RightArrow))
       {
-        newSprite = spriteRight;
-        input.x = 1;
+                anim.Play("moveRight");
+                input.x = 1;
       }
       if (Input.GetKey(KeyCode.LeftArrow))
       {
-        newSprite = spriteLeft;
-        input.x = -1;
+                anim.Play("moveLeft");
+                input.x = -1;
       }
 
       if (input != Vector2.zero) {
-        if (spriteRenderer.sprite != newSprite) {
-          spriteRenderer.sprite = newSprite;
-        }
         StartCoroutine(move(transform));
       }
     }
