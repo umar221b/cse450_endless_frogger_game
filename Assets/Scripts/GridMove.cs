@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 class GridMove : MonoBehaviour {
 
@@ -75,6 +76,8 @@ class GridMove : MonoBehaviour {
     foreach (RaycastHit2D hit in hits) {
       if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Blocked Cells"))
         hitBlockedCell = true;
+      else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Goal"))
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     while (!hitBlockedCell && t < 1f) {
       t += Time.deltaTime * (moveSpeed/gridSize) * factor;
