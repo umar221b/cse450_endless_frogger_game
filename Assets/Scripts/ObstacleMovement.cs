@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class ObstacleMovement : MonoBehaviour
 {
+    private Vector3 _startPosition;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _startPosition = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(1f*Time.deltaTime, 0, 0);
+        transform.position = _startPosition + new Vector3(40*Mathf.Sin(Time.time), 0.0f, 0.0f);
     }
 }
