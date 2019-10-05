@@ -72,6 +72,7 @@ class GridMove : MonoBehaviour {
     float distance = Vector3.Distance(startPosition, endPosition);
     // Debug.DrawLine(startPosition, endPosition, Color.black, 3f);
     RaycastHit2D[] hits = Physics2D.RaycastAll(startPosition, direction, distance);
+    // RaycastHit2D hit = Physics2D.Raycast(startPosition, direction, distance, LayerMask.GetMask("Blocked Cells")); // this works GetMask instead of NameToLayer.
     bool hitBlockedCell = false;
     foreach (RaycastHit2D hit in hits) {
       if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Blocked Cells"))
