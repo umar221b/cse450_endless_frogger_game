@@ -30,26 +30,25 @@ class GridMove : MonoBehaviour {
     if (!isMoving) {
       if (Input.GetKey(KeyCode.UpArrow))
       {
-                anim.Play("moveUp");
                 input.y = 1;
       }
       if (Input.GetKey(KeyCode.DownArrow))
       {
-                anim.Play("moveDown");
                 input.y = -1;
       }
       if (Input.GetKey(KeyCode.RightArrow))
       {
-                anim.Play("moveRight");
                 input.x = 1;
       }
       if (Input.GetKey(KeyCode.LeftArrow))
       {
-                anim.Play("moveLeft");
                 input.x = -1;
       }
 
       if (input != Vector2.zero) {
+        anim.SetInteger("verticalMovement", (int)input.y);
+        anim.SetInteger("horizontalMovement", (int)input.x);
+        print("(" + (int)input.x + ", " + (int)input.y + ")");
         StartCoroutine(move(transform));
       }
     }
