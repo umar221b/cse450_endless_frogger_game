@@ -56,6 +56,7 @@ class GridMove : MonoBehaviour {
 
   public IEnumerator move(Transform transform) {
     isMoving = true;
+    anim.SetBool("isMoving", isMoving);
     startPosition = transform.position;
     t = 0;
 
@@ -86,6 +87,7 @@ class GridMove : MonoBehaviour {
     }
 
     isMoving = false;
+    anim.SetBool("isMoving", isMoving);
     yield return 0;
   }
 }
