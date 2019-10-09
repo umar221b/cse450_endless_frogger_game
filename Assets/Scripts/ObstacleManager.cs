@@ -12,7 +12,7 @@ public class ObstacleManager : MonoBehaviour
     {
       for (int i = 0; i < numOfObstacles; i++)
         {
-            Vector3 obstaclePosition = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
+            Vector3 obstaclePosition = Camera.main.ScreenToWorldPoint(new Vector3(100, 0, 0));
             obstaclePosition.y += 2 * i + 3.5f;
             obstaclePosition.z = 0;
             Instantiate(obstacle, obstaclePosition, Quaternion.identity);
