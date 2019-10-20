@@ -19,7 +19,7 @@ public class ObstacleMovement : MonoBehaviour
         float u = Mathf.Cos(speed * Mathf.PI + Mathf.PI / 2) / speed;
         distance = screenWidth / u;
         _startPosition = transform.position;
-        print(screenWidth);
+        // print(screenWidth);
     }
 
     // Update is called once per frame
