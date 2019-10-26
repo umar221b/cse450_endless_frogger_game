@@ -355,6 +355,26 @@ MonoBehaviour:
   m_Name:
   m_EditorClassIdentifier:
   someSprite: {fileID: 21300000, guid: 857a2c787cf4a7346b580bded06493cd, type: 3}
+  cols: 10
+  blockedCellSprites:
+  - {fileID: -8730374781690043882, guid: 722fd665ce1e84fb7bc952b8a2ad0faa, type: 3}
+  - {fileID: -3428693900196903104, guid: 722fd665ce1e84fb7bc952b8a2ad0faa, type: 3}
+  - {fileID: -630331776617639735, guid: 722fd665ce1e84fb7bc952b8a2ad0faa, type: 3}
+  - {fileID: 5790981476338018596, guid: 722fd665ce1e84fb7bc952b8a2ad0faa, type: 3}
+  - {fileID: -4235244461693514077, guid: 722fd665ce1e84fb7bc952b8a2ad0faa, type: 3}
+  - {fileID: 6141386522552189561, guid: 722fd665ce1e84fb7bc952b8a2ad0faa, type: 3}
+  onFloorCellSprites: []
+  boundarySprite: {fileID: -3642588206162568648, guid: 722fd665ce1e84fb7bc952b8a2ad0faa,
+    type: 3}
+  normalCellSprites:
+  - {fileID: -4776258102042328622, guid: 722fd665ce1e84fb7bc952b8a2ad0faa, type: 3}
+  - {fileID: 4778256446777511355, guid: 722fd665ce1e84fb7bc952b8a2ad0faa, type: 3}
+  - {fileID: -6937383919521689734, guid: 722fd665ce1e84fb7bc952b8a2ad0faa, type: 3}
+  - {fileID: -300409159953338651, guid: 722fd665ce1e84fb7bc952b8a2ad0faa, type: 3}
+  - {fileID: 3252826348334192676, guid: 722fd665ce1e84fb7bc952b8a2ad0faa, type: 3}
+  - {fileID: 1654320240297352924, guid: 722fd665ce1e84fb7bc952b8a2ad0faa, type: 3}
+  - {fileID: -5621937135601779289, guid: 722fd665ce1e84fb7bc952b8a2ad0faa, type: 3}
+  - {fileID: 2817292180400547237, guid: 722fd665ce1e84fb7bc952b8a2ad0faa, type: 3}
 --- !u!4 &943641742
 Transform:
   m_ObjectHideFlags: 0

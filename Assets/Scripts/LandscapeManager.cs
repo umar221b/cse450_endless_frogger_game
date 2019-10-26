@@ -11,6 +11,7 @@ public class LandscapeManager : MonoBehaviour
   GameObject grid;
   Vector3 origin;
   Tilemap ground, onGround, blockingCells, boundaries;
+  // Tile[][] world;
 
   public void init() {
     player = GameManager.instance.getPlayer();
@@ -18,13 +19,13 @@ public class LandscapeManager : MonoBehaviour
     origin = player.transform.position;
     ground = grid.transform.Find("Ground").gameObject.GetComponent<Tilemap>();
     // onGround = grid.transform.Find("On Ground").gameObject.GetComponent<Tilemap>();
-    // blockingCells = grid.transform.Find("Blocking Cells").gameObject.GetComponent<Tilemap>();
-    // boundaries = grid.transform.Find("Boundaries").gameObject.GetComponent<Tilemap>();
+    blockingCells = grid.transform.Find("Blocking Cells").gameObject.GetComponent<Tilemap>();
+    boundaries = grid.transform.Find("Boundaries").gameObject.GetComponent<Tilemap>();
 
-    Tile curCell = ScriptableObject.CreateInstance<Tile>();
-    curCell.sprite = someSprite;
-    Vector3Int pos = Vector3Int.FloorToInt(origin);
-    ground.SetTile(pos, curCell);
+    for (int i = 0; i < 16; ++i) {
+      // world +=
+      buildRow(i);
+    }
   }
     int distanceCrossed;
     public int cols;
@@ -40,24 +41,34 @@ public class LandscapeManager : MonoBehaviour
     //   origin = player.transform.position;
     // }
 
-    Tile[] buildRow() {
+    Tile[] buildRow(int rowNum) {
         Tile[] curRow = new Tile[cols];
         for (int i = 0; i < cols; ++i) {
-          curRow[i] = buildCell(curRow, prevRow);
+          curRow[i] = buildCell(curRow, prevRow, i, rowNum);
         }
         return curRow;
     }
 
-    Tile buildCell(Tile[] curRow, Tile[] prevRow) {
-      int index = curRow.Length;
+    Tile buildCell(Tile[] curRow, Tile[] prevRow, int curCol, int rowNum) {
+      Vector3Int intOrigin = Vector3Int.FloorToInt(origin);
+      intOrigin.x -= 1;
       Tile curCell = ScriptableObject.CreateInstance<Tile>();
+      Vector3Int pos = new Vector3Int(intOrigin.x + curCol, intOrigin.y + rowNum, 0);
 
-      Vector3Int pos = new Vector3Int(0 + 1, 0 + 1, 0);
-      ground.SetTile(pos, curCell);
-      // print(curCell.sprite);
+      if (curCol == 0 || curCol == cols - 1) {
+        curCell.sprite = boundarySprite;
+        boundaries.SetTile(pos, curCell);
+        return curCell;
+      }
 
-      if (index == 0 || index == cols - 1) {
-        curCell.sprite = someSprite;
+      int seed = Random.Range(0, 100);
+      if (seed > 70 && (curCol != 1 || rowNum != 0)) {
+        curCell.sprite = blockedCellSprites[Random.Range(0, blockedCellSprites.Length)];
+        blockingCells.SetTile(pos, curCell);
+      }
+      else {
+        curCell.sprite = normalCellSprites[Random.Range(0, normalCellSprites.Length)];
+        ground.SetTile(pos, curCell);
       }
       return curCell;
     }
