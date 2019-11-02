@@ -26,6 +26,11 @@ public class ObstacleMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (LayerMask.NameToLayer("Obstacles") == LayerMask.NameToLayer("Blocking Cells"))
+        {
+            transform.position += new Vector3(-0.1f, 0, 0);
+        }
+        else
         transform.position += new Vector3(0.1f, 0, 0);
 
         // transform.position += new Vector3(2f, 0, 0);//_startPosition + new Vector3(amplitude * Mathf.Sin(frequency * Time.time + 3 * Mathf.PI / 2) + offset, 0.0f, 0.0f);
@@ -41,19 +46,7 @@ public class ObstacleMovement : MonoBehaviour
     }
     // private void OnBecameInvisible()
     // {
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-
-
-        print("something");
-        Destroy(gameObject);
-
-
-    }
-    void OnBecameInvisible()
-    {
-        Destroy(gameObject);
-    }
+    
 
     // }
 }

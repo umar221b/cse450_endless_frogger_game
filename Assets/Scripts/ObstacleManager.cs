@@ -15,8 +15,8 @@ public class ObstacleManager : MonoBehaviour
     public float timeElapsed;
     public float asteroidDelay;
     private float time;
-    public Transform[] spawnPoint;
-
+    public Transform[] spawnPointsLeft;
+    public Transform[] spawnPointsRight;
     //The time to spawn the object
     private float spawnTime;
     private float timer = 0.0f;
@@ -86,8 +86,28 @@ public class ObstacleManager : MonoBehaviour
         //    Vector3 obstaclePosition = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
         //    obstaclePosition.y += 2 * i + 3.5f;
         //    obstaclePosition.z = 0;
-        Transform randSpawnPoint = spawnPoint[Random.Range(0, spawnPoint.Length)];
-        Instantiate(obstacle, randSpawnPoint.position, Quaternion.identity);
+        int randPoint = Random.Range(0, spawnPointsLeft.Length + spawnPointsRight.Length);
+        if (randPoint < spawnPointsLeft.Length)
+        {
+
+            Transform spawnPoint = spawnPointsLeft[randPoint];
+            
+            GameObject currSpawnPoint = Instantiate(obstacle, spawnPoint.position, Quaternion.identity);
+            
+            currSpawnPoint.GetComponent<Obstacle>().init(1);
+
+        }
+        else
+        {
+            print(randPoint);
+            Transform spawnPoint = spawnPointsRight[randPoint - spawnPointsLeft.Length];
+
+            GameObject currSpawnPoint = Instantiate(obstacle, spawnPoint.position, Quaternion.identity);
+            
+            currSpawnPoint.GetComponent<Obstacle>().init(-1);
+        }
+
+
         // print(obstaclePosition);
         //}
         //repeat
