@@ -36,6 +36,9 @@ public class Obstacle : MonoBehaviour
     public void init(int direction)
     {
         this.direction = direction;
+        print("New Obstacle");
+        print(direction);
+        print(transform.position);
         canStartMove = true;
     }
     void Update()
