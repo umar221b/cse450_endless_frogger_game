@@ -13,7 +13,7 @@ public class LandscapeManager : MonoBehaviour
   // Tilemap onGround;
   Tile [][] world;
   char [, ] cellType;
-  int xProbability = 30;
+  int xProbability = 50;
   int psInPrevRow = 0;
 
   public void init() {
@@ -94,10 +94,13 @@ public class LandscapeManager : MonoBehaviour
       case 'P':
       if (psInPrevRow > 1 && curRowNum > 1)  {
         curCellType = randomXWithProbability(xProbability);
-        if (curCellType == 'N')
-          curCellType = 'P';
-        else
-          --psInPrevRow;
+                    if (curCellType == 'N')
+                        curCellType = 'P';
+                    else
+                    {
+                        --psInPrevRow;
+                       
+                    }
       }
       else {
         curCellType = 'P';
@@ -112,12 +115,12 @@ public class LandscapeManager : MonoBehaviour
         curCell.sprite = blockedCellSprites[Random.Range(0, blockedCellSprites.Length)];
         blockingCells.SetTile(pos, curCell);
         break;
-      case 'N':
-      case 'P':
+            case 'N':
+            case 'P':
         curCell.sprite = normalCellSprites[Random.Range(0, normalCellSprites.Length)];
         ground.SetTile(pos, curCell);
         break;
-    }
+        }
 
     // iterate row to update Ps
     return curCell;
@@ -131,33 +134,39 @@ public class LandscapeManager : MonoBehaviour
       return 'N';
   }
 
-  void connectPath(int rowNum) {
-    List<int> nIndices = new List<int>();
-    for (int i = 1; i < COLS - 1; ++i) {
-      bool seenP = false;
-      for (int j = i; j < COLS - 1; ++j) {
-        bool breakFromJLoop = false;
-        switch (cellType[rowNum, j]) {
-          case 'X':
-            if (seenP) {
-              foreach (int nIndex in nIndices) {
-                cellType[rowNum, nIndex] = 'P';
-              }
+    void connectPath(int rowNum)
+    {
+        List<int> nIndices = new List<int>();
+        for (int i = 1; i < COLS - 1; ++i)
+        {
+            bool seenP = false;
+            for (int j = i; j < COLS - 1; ++j)
+            {
+                bool breakFromJLoop = false;
+                switch (cellType[rowNum, j])
+                {
+                    case 'X':
+                        if (seenP)
+                        {
+                            foreach (int nIndex in nIndices)
+                            {
+                                cellType[rowNum, nIndex] = 'P';
+                            }
+                        }
+                        nIndices.Clear();
+                        i = j;
+                        breakFromJLoop = true;
+                        break;
+                    case 'N':
+                        nIndices.Add(j);
+                        break;
+                    case 'P':
+                        seenP = true;
+                        break;
+                }
+                if (breakFromJLoop)
+                    break;
             }
-            nIndices.Clear();
-            i = j;
-            breakFromJLoop = true;
-            break;
-          case 'N':
-            nIndices.Add(j);
-            break;
-          case 'P':
-            seenP = true;
-            break;
-      }
-      if (breakFromJLoop)
-        break;
+        }
     }
-  }
-}
 }
