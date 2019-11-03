@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,9 +6,12 @@ public class GameManager : MonoBehaviour
 {
   public static GameManager instance = null;
 
+    public ObstacleManager obstacleManager;
     private LandscapeManager landscapeManager;
-    private GameObject player;
-    private GameObject grid;
+
+    public GameObject player;
+    public GameObject grid;
+    public GameObject mainCamera;
 
     void Awake() {
 
@@ -21,15 +24,11 @@ public class GameManager : MonoBehaviour
         //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
         Destroy(gameObject);
 
-      //Sets this to not be destroyed when reloading scene
-      // DontDestroyOnLoad(gameObject);
-
-      player = GameObject.Find("Player");
-      grid = GameObject.Find("Grid");
-
       //Get a component reference to the attached BoardManager script
       landscapeManager = GetComponent<LandscapeManager>();
       landscapeManager.init();
+
+      obstacleManager = GetComponent<ObstacleManager>();
     }
 
     public GameObject getPlayer() {
@@ -37,5 +36,9 @@ public class GameManager : MonoBehaviour
     }
     public GameObject getGrid() {
       return grid;
+    }
+
+    public GameObject getMainCamera() {
+      return mainCamera;
     }
 }

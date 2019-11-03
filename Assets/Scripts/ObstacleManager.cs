@@ -4,114 +4,77 @@ using UnityEngine;
 
 public class ObstacleManager : MonoBehaviour
 {
-    public int numOfObstacles;
-    public GameObject obstacle;
-    public float maxTime = 5;
-    public float minTime = 2;
-    public float minAsteroidDelay = 20f;
-    public float maxAsteroidDelay = 10f;
-    public bool wandering = false;
+    public GameObject[] obstacles;
+    public GameObject spawnPoint;
 
-    public float timeElapsed;
-    public float asteroidDelay;
-    private float time;
-    public Transform[] spawnPointsLeft;
-    public Transform[] spawnPointsRight;
-    //The time to spawn the object
-    private float spawnTime;
-    private float timer = 0.0f;
-    public float waitingTime = 5.0f;
-    private Vector3 _startPosition;
 
-    private float distance = 3;//amp
-    private float speed = 1f;//frequency
-    private float frequency = 0.166f;//frequency = 0.5 for 9x16, frequency = 0.1666f for 16x9
-    private float screenWidth = Screen.width;
-    private float amplitude = 18;//amplitude = 6 for 9x16, amplitude = 18 for 16x9
-    private float offset = 15;//offset = 5 for 9x16, offset = 15 for 16x9
-    // Start is called before the first frame update
+    GameObject[] spawnPointsLeft;
+    GameObject[] spawnPointsRight;
+    float monsterDelay;
+
+    void Awake() {
+      spawnPointsLeft = new GameObject[15];
+      spawnPointsRight = new GameObject[15];
+
+      float startX = -15f;
+      float startY = -6.5f;
+
+      Vector3 positionLeft = new Vector3(startX, startY, 0);
+      Vector3 positionRight = new Vector3(startX * -1, startY, 0);
+      for (int i = 0; i < 15; ++i) {
+        spawnPointsLeft[i] = Instantiate(spawnPoint, positionLeft, Quaternion.identity);
+        spawnPointsRight[i] = Instantiate(spawnPoint, positionRight, Quaternion.identity);
+        positionLeft.y += 1;
+        positionRight.y += 1;
+      }
+    }
+
+    public void MoveSpawnPoints(int direction) {
+      StopCoroutine("MonsterSpawnTimer");
+      for (int i = 0; i < 15; ++i) {
+        spawnPointsLeft[i].transform.position += new Vector3(0, 16 * direction, 0);
+        spawnPointsRight[i].transform.position += new Vector3(0, 16 * direction, 0);
+      }
+      StartCoroutine("MonsterSpawnTimer");
+    }
 
     void Start()
     {
-        //SetRandomTime();
-        //time = minTime;
-        wandering = true;
-        StartCoroutine("AsteroidSpawnTimer");
-
-        //if (Input.GetKeyDown(KeyCode.M))
-        //{
-        //    wandering = true;
-        //    StartCoroutine("AsteroidSpawnTimer");
-        //}
-        //else
-        //{
-        //    for (int i = 0; i < numOfObstacles; i++)
-        //    {
-        //        Vector3 obstaclePosition = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
-        //        obstaclePosition.y += 2 * i + 3.5f;
-        //        obstaclePosition.z = 0;
-        //        Instantiate(obstacle, obstaclePosition, Quaternion.identity);
-        //       // print(obstaclePosition);
-        //    }
-
-        //}
-
-        //Invoke("StopExecution", 3f);
-
-
+        StartCoroutine("MonsterSpawnTimer");
     }
+
     void StopExecution()
     {
-        StopCoroutine("AsteroidSpawnTimer");
+        StopCoroutine("MonsterSpawnTimer");
     }
+
     void Update()
     {
-        //Increment passage of time for each frame of the game
-        // transform.position = _startPosition + new Vector3(amplitude * Mathf.Sin(frequency * Time.time + 3 * Mathf.PI / 2) + offset, 0.0f, 0.0f);
-        asteroidDelay = Random.Range(2f, 6f);
+        monsterDelay = Random.Range(2f, 3f);
     }
-    void SpawnAsteroid()
+
+    IEnumerator MonsterSpawnTimer()
     {
+        yield return new WaitForSeconds(monsterDelay);
 
+        int randSpawnPointNumber = Random.Range(0, spawnPointsLeft.Length + spawnPointsRight.Length);
 
-    }
-    IEnumerator AsteroidSpawnTimer()
-    {
+        Transform spawnPointTransform;
+        GameObject curMonster;
 
-        //wait
-        yield return new WaitForSeconds(asteroidDelay);
-        //Spawn
-        //for (int i = 0; i < numOfObstacles; i++)
-        //{
-        //    Vector3 obstaclePosition = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
-        //    obstaclePosition.y += 2 * i + 3.5f;
-        //    obstaclePosition.z = 0;
-        int randPoint = Random.Range(0, spawnPointsLeft.Length + spawnPointsRight.Length);
-        if (randPoint < spawnPointsLeft.Length)
+        if (randSpawnPointNumber < spawnPointsLeft.Length)
         {
-
-            Transform spawnPoint = spawnPointsLeft[randPoint];
-            
-            GameObject currSpawnPoint = Instantiate(obstacle, spawnPoint.position, Quaternion.identity);
-            
-            currSpawnPoint.GetComponent<Obstacle>().init(1);
-
+            spawnPointTransform = spawnPointsLeft[randSpawnPointNumber].transform;
+            curMonster = Instantiate(obstacles[Random.Range(0, obstacles.Length)], spawnPointTransform.position, Quaternion.identity);
+            curMonster.GetComponent<Obstacle>().init(1);
         }
         else
         {
-            print(randPoint);
-            Transform spawnPoint = spawnPointsRight[randPoint - spawnPointsLeft.Length];
-
-            GameObject currSpawnPoint = Instantiate(obstacle, spawnPoint.position, Quaternion.identity);
-            
-            currSpawnPoint.GetComponent<Obstacle>().init(-1);
+            spawnPointTransform = spawnPointsRight[randSpawnPointNumber - spawnPointsLeft.Length].transform;
+            curMonster = Instantiate(obstacles[Random.Range(0, obstacles.Length)], spawnPointTransform.position, Quaternion.identity);
+            curMonster.GetComponent<Obstacle>().init(-1);
         }
-
-
-        // print(obstaclePosition);
-        //}
-        //repeat
-        StartCoroutine("AsteroidSpawnTimer");
-        wandering = false;
+        Destroy(curMonster, 10f);
+        StartCoroutine("MonsterSpawnTimer");
     }
 }
