@@ -16,7 +16,7 @@ public class LandscapeManager : MonoBehaviour
   // Tilemap onGround;
   Tile [][] world;
   char [, ] cellType;
-  int xProbability = 10;
+  int xProbability = 30;
   int psInPrevRow = 0;
 
   public void init() {

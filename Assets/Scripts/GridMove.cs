@@ -114,6 +114,7 @@ class GridMove : MonoBehaviour
       counter += Mathf.RoundToInt(direction.y);
       counterMax = Mathf.Max(counterMax, counter);
       GameManager.instance.updateScore(counterMax);
+      ++GameManager.instance.difficulty;
     }
 
     while (!hitBlockedCell && t < 1f)

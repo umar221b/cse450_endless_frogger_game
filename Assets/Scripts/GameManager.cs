@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public ObstacleManager obstacleManager;
     private LandscapeManager landscapeManager;
 
+    public int difficulty;
     public GameObject player;
     public GameObject grid;
     public GameObject mainCamera;
