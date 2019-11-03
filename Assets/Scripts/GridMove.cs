@@ -6,7 +6,7 @@ class GridMove : MonoBehaviour
 {
 
   Animator anim;
-
+  public GameObject mainCamera;
   private float moveSpeed = 5f;
   private float gridSize = 1f;
   private enum Orientation
@@ -67,7 +67,19 @@ class GridMove : MonoBehaviour
       }
     }
   }
+  public void LateUpdate() {
+    Vector3 cameraPosition = mainCamera.transform.position;
+    float size = mainCamera.GetComponent<Camera>().orthographicSize;
+    if (transform.position.y > cameraPosition.y + size) {
+      GameManager.instance.obstacleManager.MoveSpawnPoints(1);
+      mainCamera.transform.position = cameraPosition + new Vector3(0, 16f, 0);
+    }
 
+    else if (transform.position.y < cameraPosition.y - size) {
+      GameManager.instance.obstacleManager.MoveSpawnPoints(-1);
+      mainCamera.transform.position = cameraPosition - new Vector3(0, 16f, 0);
+    }
+  }
   public IEnumerator move(Transform transform)
   {
     isMoving = true;

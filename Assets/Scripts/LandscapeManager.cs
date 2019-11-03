@@ -8,35 +8,38 @@ public class LandscapeManager : MonoBehaviour
 
   GameObject player;
   GameObject grid;
+  GameObject mainCamera;
+
   Vector3 origin;
+  Vector3Int intOrigin;
   Tilemap ground, blockingCells, boundaries;
   // Tilemap onGround;
   Tile [][] world;
   char [, ] cellType;
-  int xProbability = 50;
+  int xProbability = 10;
   int psInPrevRow = 0;
 
   public void init() {
     player = GameManager.instance.getPlayer();
     grid = GameManager.instance.getGrid();
-    origin = player.transform.position;
+    mainCamera = GameManager.instance.getMainCamera();
+    origin = mainCamera.GetComponent<Camera>().ViewportToWorldPoint(mainCamera.transform.position);
+    intOrigin = Vector3Int.FloorToInt(origin);
     ground = grid.transform.Find("Ground").gameObject.GetComponent<Tilemap>();
     // onGround = grid.transform.Find("On Ground").gameObject.GetComponent<Tilemap>();
     blockingCells = grid.transform.Find("Blocking Cells").gameObject.GetComponent<Tilemap>();
     boundaries = grid.transform.Find("Boundaries").gameObject.GetComponent<Tilemap>();
     world = new Tile[ROWS][];
     cellType = new char[ROWS + 1, COLS];
-    cellType[0, 0] = 'B';
-    cellType[0, COLS - 1] = 'B';
-    for (int j = 1; j < COLS - 1; ++j) {
-      cellType[0, j] = 'P';
-    }
 
-    for (int i = 0; i < ROWS; ++i) {
-      world[i] = buildRow(i + 1);
-      connectPath(i + 1);
-    }
+    generateWorldPart(0, true);
+    displayWorldPart(0);
 
+    generateWorldPart(1);
+    displayWorldPart(1);
+
+    generateWorldPart(2);
+    displayWorldPart(2);
     // string s = "";
     // for (int i = ROWS; i >= 0; --i) {
     //   for (int j = 0; j < COLS; ++j) {
@@ -51,6 +54,7 @@ public class LandscapeManager : MonoBehaviour
   }
   public int COLS;
   public int ROWS;
+  public int NUM_OF_PARTS;
 
   public Sprite[] blockedCellSprites;
   // public Sprite[] onGroundCellSprites;
@@ -71,16 +75,13 @@ public class LandscapeManager : MonoBehaviour
   }
 
   Tile buildCell(Tile[] curRow, int curColNum, int curRowNum) {
-    Vector3Int intOrigin = Vector3Int.FloorToInt(origin);
-    intOrigin.x -= 1;
     Tile curCell = ScriptableObject.CreateInstance<Tile>();
-    Vector3Int pos = new Vector3Int(intOrigin.x + curColNum, intOrigin.y + curRowNum - 1, 0);
 
     char curCellType = 'B';
 
     if (curColNum == 0 || curColNum == COLS - 1) {
       curCell.sprite = boundarySprite;
-      boundaries.SetTile(pos, curCell);
+      // boundaries.SetTile(pos, curCell);
       cellType[curRowNum, curColNum] = curCellType;
       return curCell;
     }
@@ -89,18 +90,15 @@ public class LandscapeManager : MonoBehaviour
     switch (cellType[curRowNum - 1, curColNum]) {
       case 'X':
       case 'N':
-        curCellType = randomXWithProbability(xProbability);
-        break;
+      curCellType = randomXWithProbability(xProbability);
+      break;
       case 'P':
       if (psInPrevRow > 1 && curRowNum > 1)  {
         curCellType = randomXWithProbability(xProbability);
-                    if (curCellType == 'N')
-                        curCellType = 'P';
-                    else
-                    {
-                        --psInPrevRow;
-                       
-                    }
+        if (curCellType == 'N')
+        curCellType = 'P';
+        else
+        --psInPrevRow;
       }
       else {
         curCellType = 'P';
@@ -112,15 +110,15 @@ public class LandscapeManager : MonoBehaviour
 
     switch (cellType[curRowNum, curColNum]) {
       case 'X':
-        curCell.sprite = blockedCellSprites[Random.Range(0, blockedCellSprites.Length)];
-        blockingCells.SetTile(pos, curCell);
-        break;
-            case 'N':
-            case 'P':
-        curCell.sprite = normalCellSprites[Random.Range(0, normalCellSprites.Length)];
-        ground.SetTile(pos, curCell);
-        break;
-        }
+      curCell.sprite = blockedCellSprites[Random.Range(0, blockedCellSprites.Length)];
+      // blockingCells.SetTile(pos, curCell);
+      break;
+      case 'N':
+      case 'P':
+      curCell.sprite = normalCellSprites[Random.Range(0, normalCellSprites.Length)];
+      // ground.SetTile(pos, curCell);
+      break;
+    }
 
     // iterate row to update Ps
     return curCell;
@@ -129,44 +127,90 @@ public class LandscapeManager : MonoBehaviour
   char randomXWithProbability(int prob) {
     int seed = Random.Range(0, 100);
     if (seed < prob)
-      return 'X';
+    return 'X';
     else
-      return 'N';
+    return 'N';
   }
 
-    void connectPath(int rowNum)
-    {
-        List<int> nIndices = new List<int>();
-        for (int i = 1; i < COLS - 1; ++i)
-        {
-            bool seenP = false;
-            for (int j = i; j < COLS - 1; ++j)
-            {
-                bool breakFromJLoop = false;
-                switch (cellType[rowNum, j])
-                {
-                    case 'X':
-                        if (seenP)
-                        {
-                            foreach (int nIndex in nIndices)
-                            {
-                                cellType[rowNum, nIndex] = 'P';
-                            }
-                        }
-                        nIndices.Clear();
-                        i = j;
-                        breakFromJLoop = true;
-                        break;
-                    case 'N':
-                        nIndices.Add(j);
-                        break;
-                    case 'P':
-                        seenP = true;
-                        break;
-                }
-                if (breakFromJLoop)
-                    break;
+  void connectPath(int rowNum) {
+    List<int> nIndices = new List<int>();
+    for (int i = 1; i < COLS - 1; ++i) {
+      bool seenP = false;
+      for (int j = i; j < COLS - 1; ++j) {
+        bool breakFromJLoop = false;
+        switch (cellType[rowNum, j]) {
+          case 'X':
+          if (seenP) {
+            foreach (int nIndex in nIndices) {
+              cellType[rowNum, nIndex] = 'P';
             }
+          }
+          nIndices.Clear();
+          i = j;
+          breakFromJLoop = true;
+          break;
+          case 'N':
+          nIndices.Add(j);
+          break;
+          case 'P':
+          seenP = true;
+          break;
         }
+        if (breakFromJLoop)
+        break;
+      }
     }
+  }
+
+  void displayRows(int firstRow, int lastRow) {
+    for (int i = firstRow; i <= lastRow; ++i) {
+      for (int j = 0; j < COLS; ++ j)
+        displayTile(i, j);
+    }
+  }
+
+  void displayTile(int row, int col) {
+    // print("(" + row + ", " + col + ")");
+    Vector3Int pos = new Vector3Int(intOrigin.x + col, intOrigin.y + row, 0);
+    Tile curCell = world[row][col];
+
+    switch (cellType[row + 1, col]) {
+      case 'B':
+      boundaries.SetTile(pos, curCell);
+      break;
+      case 'X':
+      blockingCells.SetTile(pos, curCell);
+      break;
+      case 'N':
+      case 'P':
+      ground.SetTile(pos, curCell);
+      break;
+    }
+  }
+
+  // Be careful! This is destructive, the new half will replace an old half
+  void generateWorldPart(int part, bool initial = false) {
+    cellType[0, 0] = 'B';
+    cellType[0, COLS - 1] = 'B';
+    if (part == 0) {
+      if (initial) {
+        for (int j = 1; j < COLS - 1; ++j) {
+          cellType[0, j] = 'P';
+        }
+      }
+      else {
+        for (int j = 1; j < COLS - 1; ++j) {
+          cellType[0, j] = cellType[ROWS, j];
+        }
+      }
+    }
+    for (int i = part * ROWS / NUM_OF_PARTS; i < ROWS / NUM_OF_PARTS * (part + 1); ++i) {
+      world[i] = buildRow(i + 1);
+      connectPath(i + 1);
+    }
+  }
+
+  void displayWorldPart(int part) {
+    displayRows(part * ROWS / NUM_OF_PARTS, ROWS / NUM_OF_PARTS * (part + 1) - 1);
+  }
 }
