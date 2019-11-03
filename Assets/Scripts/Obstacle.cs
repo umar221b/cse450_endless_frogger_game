@@ -16,6 +16,7 @@ public class Obstacle : MonoBehaviour
   {
     if (other.gameObject.GetComponent<GridMove>())
     {
+      GameManager.instance.updateHighscore();
       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

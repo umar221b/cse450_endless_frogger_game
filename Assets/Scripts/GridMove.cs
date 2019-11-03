@@ -22,6 +22,9 @@ class GridMove : MonoBehaviour
   private float t;
   private float factor = 1f;
 
+  int counter = 0;
+  int counterMax = 0;
+
   void Start()
   {
     anim = GetComponent<Animator>();
@@ -29,40 +32,35 @@ class GridMove : MonoBehaviour
   public void Update()
   {
     input = new Vector2(0, 0);
-    int counter = 0;
+    int onlyOneStep = 0;
 
     if (!isMoving)
     {
       if (Input.GetKey(KeyCode.DownArrow))
       {
-        counter++;
+        ++onlyOneStep;
         input.y = -1;
       }
       if (Input.GetKey(KeyCode.UpArrow))
       {
-        counter++;
+        ++onlyOneStep;
         input.y = 1;
       }
 
       if (Input.GetKey(KeyCode.RightArrow))
       {
-        counter++;
+        ++onlyOneStep;
         input.x = 1;
       }
       if (Input.GetKey(KeyCode.LeftArrow))
       {
-        counter++;
+        ++onlyOneStep;
         input.x = -1;
       }
-      if (counter > 1)
-      {
-        input = Vector2.zero;
-      }
 
-      if (input != Vector2.zero) {
+      if (onlyOneStep == 1 && input != Vector2.zero) {
         anim.SetInteger("verticalMovement", (int)input.y);
         anim.SetInteger("horizontalMovement", (int)input.x);
-        // print("(" + (int)input.x + ", " + (int)input.y + ")");
         StartCoroutine(move(transform));
       }
     }
@@ -99,6 +97,7 @@ class GridMove : MonoBehaviour
     }
 
     Vector3 direction = endPosition - startPosition;
+
     float distance = Vector3.Distance(startPosition, endPosition);
     // Debug.DrawLine(startPosition, endPosition, Color.black, 3f);
     RaycastHit2D[] hits = Physics2D.RaycastAll(startPosition, direction, distance);
@@ -111,6 +110,12 @@ class GridMove : MonoBehaviour
       else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Goal"))
       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    if (!hitBlockedCell) {
+      counter += Mathf.RoundToInt(direction.y);
+      counterMax = Mathf.Max(counterMax, counter);
+      GameManager.instance.updateScore(counterMax);
+    }
+
     while (!hitBlockedCell && t < 1f)
     {
       t += Time.deltaTime * (moveSpeed / gridSize) * factor;
