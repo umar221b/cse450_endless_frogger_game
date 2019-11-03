@@ -29,6 +29,7 @@ class GridMove : MonoBehaviour
   {
     anim = GetComponent<Animator>();
   }
+
   public void Update()
   {
     input = new Vector2(0, 0);
@@ -65,19 +66,22 @@ class GridMove : MonoBehaviour
       }
     }
   }
+
   public void LateUpdate() {
     Vector3 cameraPosition = mainCamera.transform.position;
-    float size = mainCamera.GetComponent<Camera>().orthographicSize;
-    if (transform.position.y > cameraPosition.y + size) {
+    float cameraHeight = mainCamera.GetComponent<Camera>().orthographicSize;
+    if (transform.position.y > cameraPosition.y + cameraHeight) {
       GameManager.instance.obstacleManager.MoveSpawnPoints(1);
       mainCamera.transform.position = cameraPosition + new Vector3(0, 16f, 0);
+      ++GameManager.instance.difficulty;
     }
 
-    else if (transform.position.y < cameraPosition.y - size) {
+    else if (transform.position.y < cameraPosition.y - cameraHeight) {
       GameManager.instance.obstacleManager.MoveSpawnPoints(-1);
       mainCamera.transform.position = cameraPosition - new Vector3(0, 16f, 0);
     }
   }
+
   public IEnumerator move(Transform transform)
   {
     isMoving = true;
@@ -105,16 +109,15 @@ class GridMove : MonoBehaviour
     bool hitBlockedCell = false;
     foreach (RaycastHit2D hit in hits)
     {
-      if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Blocked Cells"))
-      hitBlockedCell = true;
-      else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Goal"))
-      SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+      if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Blocked Cells")) {
+        hitBlockedCell = true;
+        break;
+      }
     }
     if (!hitBlockedCell) {
       counter += Mathf.RoundToInt(direction.y);
       counterMax = Mathf.Max(counterMax, counter);
       GameManager.instance.updateScore(counterMax);
-      ++GameManager.instance.difficulty;
     }
 
     while (!hitBlockedCell && t < 1f)

@@ -34,12 +34,13 @@ public class LandscapeManager : MonoBehaviour
 
     generateWorldPart(0, true);
     displayWorldPart(0);
+    generateBoundaryRow(-1);
 
-    generateWorldPart(1);
-    displayWorldPart(1);
-
-    generateWorldPart(2);
-    displayWorldPart(2);
+    // generateWorldPart(1);
+    // displayWorldPart(1);
+    //
+    // generateWorldPart(2);
+    // displayWorldPart(2);
     // string s = "";
     // for (int i = ROWS; i >= 0; --i) {
     //   for (int j = 0; j < COLS; ++j) {
@@ -96,9 +97,9 @@ public class LandscapeManager : MonoBehaviour
       if (psInPrevRow > 1 && curRowNum > 1)  {
         curCellType = randomXWithProbability(xProbability);
         if (curCellType == 'N')
-        curCellType = 'P';
+          curCellType = 'P';
         else
-        --psInPrevRow;
+          --psInPrevRow;
       }
       else {
         curCellType = 'P';
@@ -126,10 +127,10 @@ public class LandscapeManager : MonoBehaviour
 
   char randomXWithProbability(int prob) {
     int seed = Random.Range(0, 100);
-    if (seed < prob)
-    return 'X';
+    if (seed < Mathf.Max(15, prob - GameManager.instance.difficulty * 0.2f))
+      return 'X';
     else
-    return 'N';
+      return 'N';
   }
 
   void connectPath(int rowNum) {
@@ -159,6 +160,14 @@ public class LandscapeManager : MonoBehaviour
         if (breakFromJLoop)
         break;
       }
+    }
+  }
+
+  void generateBoundaryRow(int rowNumber) {
+    for (int j = 0; j < COLS; ++ j) {
+      Tile curCell = ScriptableObject.CreateInstance<Tile>();
+      curCell.sprite = boundarySprite;
+      boundaries.SetTile(new Vector3Int(intOrigin.x + j, intOrigin.y + rowNumber, 0), curCell);
     }
   }
 

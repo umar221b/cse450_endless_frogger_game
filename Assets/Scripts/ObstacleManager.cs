@@ -13,6 +13,7 @@ public class ObstacleManager : MonoBehaviour
 
     GameObject[] spawnPointsLeft;
     GameObject[] spawnPointsRight;
+
     float monsterDelay;
 
     void Awake() {
@@ -53,7 +54,7 @@ public class ObstacleManager : MonoBehaviour
 
     void Update()
     {
-        monsterDelay = Random.Range(Mathf.Max(0.8f, minSpawnDelay - (GameManager.instance.difficulty * 0.002f)), Mathf.Min(6f, maxSpawnDelay - (GameManager.instance.difficulty * 0.002f)));
+        monsterDelay = Random.Range(Mathf.Max(0.3f, minSpawnDelay - (GameManager.instance.difficulty * 0.08f)), Mathf.Max(0.6f, maxSpawnDelay - (GameManager.instance.difficulty * 0.08f)));
     }
 
     IEnumerator MonsterSpawnTimer()
@@ -64,18 +65,18 @@ public class ObstacleManager : MonoBehaviour
 
         Transform spawnPointTransform;
         GameObject curMonster;
-
+        float monsterSpeed = Mathf.Min(speed + (GameManager.instance.difficulty * 0.002f), 0.1f);
         if (randSpawnPointNumber < spawnPointsLeft.Length)
         {
             spawnPointTransform = spawnPointsLeft[randSpawnPointNumber].transform;
             curMonster = Instantiate(obstacles[Random.Range(0, obstacles.Length)], spawnPointTransform.position, Quaternion.identity);
-            curMonster.GetComponent<Obstacle>().init(1, Mathf.Min(speed + (GameManager.instance.difficulty * 0.0002f), 1));
+            curMonster.GetComponent<Obstacle>().init(1, monsterSpeed);
         }
         else
         {
             spawnPointTransform = spawnPointsRight[randSpawnPointNumber - spawnPointsLeft.Length].transform;
             curMonster = Instantiate(obstacles[Random.Range(0, obstacles.Length)], spawnPointTransform.position, Quaternion.identity);
-            curMonster.GetComponent<Obstacle>().init(-1, Mathf.Min(speed + (GameManager.instance.difficulty * 0.0002f), 1));
+            curMonster.GetComponent<Obstacle>().init(-1, monsterSpeed);
         }
         Destroy(curMonster, 10f);
         StartCoroutine("MonsterSpawnTimer");

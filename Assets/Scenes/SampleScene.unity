@@ -435,8 +435,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   COLS: 10
-  ROWS: 480
-  NUM_OF_PARTS: 3
+  ROWS: 960
+  NUM_OF_PARTS: 1
   blockedCellSprites:
   - {fileID: -8730374781690043882, guid: 722fd665ce1e84fb7bc952b8a2ad0faa, type: 3}
   - {fileID: -3428693900196903104, guid: 722fd665ce1e84fb7bc952b8a2ad0faa, type: 3}
@@ -482,7 +482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleManager: {fileID: 0}
-  difficulty: 1
+  difficulty: 0
   player: {fileID: 1948600885}
   grid: {fileID: 1812740616}
   mainCamera: {fileID: 519420028}
