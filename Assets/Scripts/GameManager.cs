@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,12 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject grid;
     public GameObject mainCamera;
+
+    public Text scoreText;
+    public Text highscoreText;
+
+    private int score;
+    private int highscore;
 
     void Awake() {
 
@@ -31,6 +38,17 @@ public class GameManager : MonoBehaviour
       obstacleManager = GetComponent<ObstacleManager>();
     }
 
+    void Start() {
+      this.highscore = PlayerPrefs.GetInt("highscore");
+      highscoreText.text = highscore.ToString();
+    }
+
+    void Update() {
+      scoreText.text = score.ToString();
+      if (score > highscore)
+        highscoreText.text = score.ToString();
+    }
+
     public GameObject getPlayer() {
       return player;
     }
@@ -40,5 +58,24 @@ public class GameManager : MonoBehaviour
 
     public GameObject getMainCamera() {
       return mainCamera;
+    }
+
+    public int getScore() {
+      return score;
+    }
+
+    public int getHighscore() {
+      return highscore;
+    }
+
+    public void updateScore(int newScore) {
+      this.score = newScore;
+    }
+
+    public void updateHighscore() {
+      if (score > highscore) {
+        this.highscore = score;
+        PlayerPrefs.SetInt("highscore", this.highscore);
+      }
     }
 }
