@@ -6,6 +6,8 @@ using UnityEngine.Tilemaps;
 public class LandscapeManager : MonoBehaviour
 {
 
+  public int blockedCellProbability;
+
   GameObject player;
   GameObject grid;
   GameObject mainCamera;
@@ -16,8 +18,17 @@ public class LandscapeManager : MonoBehaviour
   // Tilemap onGround;
   Tile [][] world;
   char [, ] cellType;
-  int xProbability = 30;
   int psInPrevRow = 0;
+
+  public int COLS;
+  public int ROWS;
+  public int NUM_OF_PARTS;
+
+  public Sprite[] blockedCellSprites;
+
+  // public Sprite[] onGroundCellSprites;
+  public Sprite boundarySprite;
+  public Sprite[] normalCellSprites;
 
   public void init() {
     player = GameManager.instance.getPlayer();
@@ -53,14 +64,6 @@ public class LandscapeManager : MonoBehaviour
     // print(s);
 
   }
-  public int COLS;
-  public int ROWS;
-  public int NUM_OF_PARTS;
-
-  public Sprite[] blockedCellSprites;
-  // public Sprite[] onGroundCellSprites;
-  public Sprite boundarySprite;
-  public Sprite[] normalCellSprites;
 
   Tile[] buildRow(int curRowNum) {
     psInPrevRow = 0;
@@ -70,12 +73,12 @@ public class LandscapeManager : MonoBehaviour
     }
     Tile[] curRow = new Tile[COLS];
     for (int i = 0; i < COLS; ++i) {
-      curRow[i] = buildCell(curRow, i, curRowNum);
+      curRow[i] = buildCell(i, curRowNum);
     }
     return curRow;
   }
 
-  Tile buildCell(Tile[] curRow, int curColNum, int curRowNum) {
+  Tile buildCell(int curColNum, int curRowNum) {
     Tile curCell = ScriptableObject.CreateInstance<Tile>();
 
     char curCellType = 'B';
@@ -91,11 +94,11 @@ public class LandscapeManager : MonoBehaviour
     switch (cellType[curRowNum - 1, curColNum]) {
       case 'X':
       case 'N':
-      curCellType = randomXWithProbability(xProbability);
+      curCellType = randomXWithProbability(blockedCellProbability);
       break;
       case 'P':
       if (psInPrevRow > 1 && curRowNum > 1)  {
-        curCellType = randomXWithProbability(xProbability);
+        curCellType = randomXWithProbability(blockedCellProbability);
         if (curCellType == 'N')
           curCellType = 'P';
         else

@@ -434,6 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7e33dad91f94457aa46363b647695b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockedCellProbability: 50
   COLS: 10
   ROWS: 960
   NUM_OF_PARTS: 1
