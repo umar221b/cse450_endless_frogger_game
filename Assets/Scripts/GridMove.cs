@@ -73,7 +73,6 @@ class GridMove : MonoBehaviour
     if (transform.position.y > cameraPosition.y + cameraHeight) {
       GameManager.instance.obstacleManager.MoveSpawnPoints(1);
       mainCamera.transform.position = cameraPosition + new Vector3(0, 16f, 0);
-      ++GameManager.instance.difficulty;
     }
 
     else if (transform.position.y < cameraPosition.y - cameraHeight) {

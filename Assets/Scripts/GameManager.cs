@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     }
 
     void Update() {
+      difficulty = score / 16;
       scoreText.text = score.ToString();
       if (score > highscore)
         highscoreText.text = score.ToString();
