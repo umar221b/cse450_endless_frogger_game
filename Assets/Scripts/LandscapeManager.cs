@@ -130,7 +130,8 @@ public class LandscapeManager : MonoBehaviour
 
   char randomXWithProbability(int prob) {
     int seed = Random.Range(0, 100);
-    if (seed < Mathf.Max(15, prob - GameManager.instance.difficulty * 0.2f))
+    if (seed < prob)
+    // if (seed < Mathf.Max(15, prob - GameManager.instance.difficulty * 0.2f))
       return 'X';
     else
       return 'N';
