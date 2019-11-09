@@ -434,10 +434,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7e33dad91f94457aa46363b647695b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockedCellProbability: 50
+  blockedCellProbability: 0
   COLS: 10
-  ROWS: 960
-  NUM_OF_PARTS: 1
+  ROWS: 48
+  NUM_OF_PARTS: 3
   blockedCellSprites:
   - {fileID: -8730374781690043882, guid: 722fd665ce1e84fb7bc952b8a2ad0faa, type: 3}
   - {fileID: -3428693900196903104, guid: 722fd665ce1e84fb7bc952b8a2ad0faa, type: 3}
