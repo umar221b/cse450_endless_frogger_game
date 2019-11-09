@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 class GridMove : MonoBehaviour
 {
 
+  int activeWorldPart = 0;
   Animator anim;
   public GameObject mainCamera;
   private float moveSpeed = 5f;
@@ -73,8 +74,10 @@ class GridMove : MonoBehaviour
     if (transform.position.y > cameraPosition.y + cameraHeight) {
       GameManager.instance.obstacleManager.MoveSpawnPoints(1);
       mainCamera.transform.position = cameraPosition + new Vector3(0, 16f, 0);
-      if (GameManager.instance.getActiveWorldPart() > 1) {
+      int newActiveWorldPart = GameManager.instance.getActiveWorldPart();
+      if (newActiveWorldPart > 1 && activeWorldPart != newActiveWorldPart) {
         GameManager.instance.generateNextWorldPart();
+        activeWorldPart = newActiveWorldPart;
       }
     }
 
