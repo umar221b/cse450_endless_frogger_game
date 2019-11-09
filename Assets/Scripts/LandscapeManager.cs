@@ -51,18 +51,6 @@ public class LandscapeManager : MonoBehaviour
     displayWorldPart(1);
     generateWorldPart(2);
     displayWorldPart(2);
-
-    // string s = "";
-    // for (int i = ROWS; i >= 0; --i) {
-    //   for (int j = 0; j < COLS; ++j) {
-    //     if (j != 0)
-    //       s += ' ';
-    //     s += cellType[i, j];
-    //   }
-    //   s += '\n';
-    // }
-    // print(s);
-
   }
 
   Tile[] buildRow(int curRowNum) {
@@ -232,5 +220,15 @@ public class LandscapeManager : MonoBehaviour
 
   public void displayWorldPart(int part) {
     displayRows(part * ROWS / NUM_OF_PARTS, ROWS / NUM_OF_PARTS * (part + 1) - 1);
+    // string s = "";
+    // for (int i = ROWS; i >= 0; --i) {
+    //   for (int j = 0; j < COLS; ++j) {
+    //     if (j != 0)
+    //       s += ' ';
+    //     s += cellType[i, j];
+    //   }
+    //   s += '\n';
+    // }
+    // print(s);
   }
 }
