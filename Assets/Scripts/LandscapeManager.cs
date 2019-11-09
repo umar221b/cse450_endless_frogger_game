@@ -47,11 +47,11 @@ public class LandscapeManager : MonoBehaviour
     displayWorldPart(0);
     generateBoundaryRow(-1);
 
-    // generateWorldPart(1);
-    // displayWorldPart(1);
-    //
-    // generateWorldPart(2);
-    // displayWorldPart(2);
+    generateWorldPart(1);
+    displayWorldPart(1);
+    generateWorldPart(2);
+    displayWorldPart(2);
+
     // string s = "";
     // for (int i = ROWS; i >= 0; --i) {
     //   for (int j = 0; j < COLS; ++j) {
@@ -167,7 +167,7 @@ public class LandscapeManager : MonoBehaviour
     }
   }
 
-  void generateBoundaryRow(int rowNumber) {
+  public void generateBoundaryRow(int rowNumber) {
     for (int j = 0; j < COLS; ++ j) {
       Tile curCell = ScriptableObject.CreateInstance<Tile>();
       curCell.sprite = boundarySprite;
@@ -185,24 +185,31 @@ public class LandscapeManager : MonoBehaviour
   void displayTile(int row, int col) {
     // print("(" + row + ", " + col + ")");
     Vector3Int pos = new Vector3Int(intOrigin.x + col, intOrigin.y + row, 0);
-    Tile curCell = world[row][col];
+    int rowNormalized = row % 48;
+    Tile curCell = world[rowNormalized][col];
 
-    switch (cellType[row + 1, col]) {
+    switch (cellType[rowNormalized + 1, col]) {
       case 'B':
       boundaries.SetTile(pos, curCell);
+      if (row > (ROWS - 1))
+        boundaries.SetTile(pos + new Vector3Int(0, -ROWS, 0), null);
       break;
       case 'X':
       blockingCells.SetTile(pos, curCell);
+      if (row > (ROWS - 1))
+        blockingCells.SetTile(pos + new Vector3Int(0, -ROWS, 0), null);
       break;
       case 'N':
       case 'P':
       ground.SetTile(pos, curCell);
+      if (row > (ROWS - 1))
+        ground.SetTile(pos + new Vector3Int(0, -ROWS, 0), null);
       break;
     }
   }
 
   // Be careful! This is destructive, the new half will replace an old half
-  void generateWorldPart(int part, bool initial = false) {
+  public void generateWorldPart(int part, bool initial = false) {
     cellType[0, 0] = 'B';
     cellType[0, COLS - 1] = 'B';
     if (part == 0) {
@@ -223,7 +230,7 @@ public class LandscapeManager : MonoBehaviour
     }
   }
 
-  void displayWorldPart(int part) {
+  public void displayWorldPart(int part) {
     displayRows(part * ROWS / NUM_OF_PARTS, ROWS / NUM_OF_PARTS * (part + 1) - 1);
   }
 }
