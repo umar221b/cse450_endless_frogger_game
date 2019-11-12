@@ -82,11 +82,11 @@ public class LandscapeManager : MonoBehaviour
     switch (cellType[curRowNum - 1, curColNum]) {
       case 'X':
       case 'N':
-      curCellType = randomXWithProbability(blockedCellProbability);
+      curCellType = randomXWithProbability(blockedCellProbabilityWithDifficulty());
       break;
       case 'P':
       if (psInPrevRow > 1 && curRowNum > 1)  {
-        curCellType = randomXWithProbability(blockedCellProbability);
+        curCellType = randomXWithProbability(blockedCellProbabilityWithDifficulty());
         if (curCellType == 'N')
           curCellType = 'P';
         else
@@ -114,6 +114,10 @@ public class LandscapeManager : MonoBehaviour
 
     // iterate row to update Ps
     return curCell;
+  }
+
+  int blockedCellProbabilityWithDifficulty() {
+    return (int) Mathf.Max(blockedCellProbability - GameManager.instance.difficulty * 0.66666f, 7f);
   }
 
   char randomXWithProbability(int prob) {
