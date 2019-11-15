@@ -46,6 +46,8 @@ public class Obstacle : MonoBehaviour
 
   void Update()
   {
+    if(GameManager.instance.gamePaused())
+      return;
     if (canStartMove)
       transform.position += new Vector3(direction * speed, 0, 0);
   }
