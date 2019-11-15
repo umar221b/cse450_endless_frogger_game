@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
   private int score;
   private int highscore;
-  public bool isPaused;
+  private bool isPaused;
 
   void Awake() {
 
@@ -53,14 +53,10 @@ public class GameManager : MonoBehaviour
 
     // Trigger menu
     if(Input.GetKey(KeyCode.Escape))
-    {
       MenuManager.instance.Show();
-    }
 
-    if(isPaused)
-    {
+    if(gamePaused())
       return;
-    }
   }
 
   public int getActiveWorldPart() {
@@ -108,5 +104,16 @@ public class GameManager : MonoBehaviour
     landscapeManager.generateWorldPart((curPart + 1) % 3);
     landscapeManager.displayWorldPart(curPart + 1);
 
+  }
+
+  public bool gamePaused() {
+    return isPaused;
+  }
+  public void pause() {
+    isPaused = true;
+  }
+
+  public void unPause() {
+    isPaused = false;
   }
 }

@@ -33,6 +33,9 @@ class GridMove : MonoBehaviour
 
   public void Update()
   {
+    if(GameManager.instance.gamePaused())
+      return;
+
     input = new Vector2(0, 0);
     int onlyOneStep = 0;
 
