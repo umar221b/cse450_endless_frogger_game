@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 
   private int score;
   private int highscore;
+  public bool isPaused;
 
   void Awake() {
 
@@ -49,6 +50,17 @@ public class GameManager : MonoBehaviour
     scoreText.text = score.ToString();
     if (score > highscore)
     highscoreText.text = score.ToString();
+
+    // Trigger menu
+    if(Input.GetKey(KeyCode.Escape))
+    {
+      MenuManager.instance.Show();
+    }
+
+    if(isPaused)
+    {
+      return;
+    }
   }
 
   public int getActiveWorldPart() {
@@ -83,6 +95,11 @@ public class GameManager : MonoBehaviour
       this.highscore = score;
       PlayerPrefs.SetInt("highscore", this.highscore);
     }
+  }
+
+  public void resetHighscore() {
+    this.highscore = 0;
+    PlayerPrefs.SetInt("highscore", 0);
   }
 
   public void generateNextWorldPart() {
