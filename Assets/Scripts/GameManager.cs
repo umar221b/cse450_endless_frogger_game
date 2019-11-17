@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
 
     // Trigger menu
     if(Input.GetKeyDown(KeyCode.Escape)) {
-      if (MenuManager.instance.mainMenuActive())
+      if (MenuManager.instance.mainMenuIsActive())
         MenuManager.instance.Hide();
       else
         MenuManager.instance.Show();

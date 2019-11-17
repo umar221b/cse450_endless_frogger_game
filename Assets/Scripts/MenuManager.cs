@@ -45,8 +45,8 @@ public class MenuManager : MonoBehaviour
     someMenu.SetActive(true);
   }
 
-  public bool mainMenuActive() {
-    return mainMenu.activeSelf;
+  public bool mainMenuIsActive() {
+    return mainMenu.activeInHierarchy;
   }
 
   public void ShowMainMenu()
