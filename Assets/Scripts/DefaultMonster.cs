@@ -22,9 +22,9 @@ public class DefaultMonster : MonoBehaviour
 
     if (other.gameObject.layer == LayerMask.NameToLayer("Blocked Cells")) {
       direction *= -1;
-      if (direction == -1)
+      if (gameObject.tag != "One Way Monster" && direction == -1)
         anim.Play("MoveLeft");
-      else
+      else if (gameObject.tag != "One Way Monster" && direction == 1)
         anim.Play("MoveRight");
     }
   }
@@ -40,7 +40,7 @@ public class DefaultMonster : MonoBehaviour
     this.speed = speed;
     canStartMove = true;
     anim = GetComponent<Animator>();
-    if (direction == -1)
+    if (gameObject.tag != "One Way Monster" && direction == -1)
       anim.Play("MoveLeft");
   }
 
