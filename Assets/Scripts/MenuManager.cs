@@ -45,6 +45,10 @@ public class MenuManager : MonoBehaviour
     someMenu.SetActive(true);
   }
 
+  public bool mainMenuActive() {
+    return mainMenu.active;
+  }
+
   public void ShowMainMenu()
   {
     SwitchMenu(mainMenu);
