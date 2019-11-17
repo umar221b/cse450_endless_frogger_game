@@ -76,7 +76,7 @@ class PlayerController : MonoBehaviour
     Vector3 cameraPosition = mainCamera.transform.position;
     float cameraHeight = mainCamera.GetComponent<Camera>().orthographicSize;
     if (transform.position.y > cameraPosition.y + cameraHeight) {
-      GameManager.instance.defaultMonsterManager.MoveSpawnPoints(1);
+      GameManager.instance.monsterManager.MoveSpawnPoints(1);
       mainCamera.transform.position = cameraPosition + new Vector3(0, 16f, 0);
       int newActiveWorldPart = GameManager.instance.getActiveWorldPart();
       if (newActiveWorldPart > 1 && activeWorldPart != newActiveWorldPart) {
@@ -86,7 +86,7 @@ class PlayerController : MonoBehaviour
     }
 
     else if (transform.position.y < cameraPosition.y - cameraHeight) {
-      GameManager.instance.defaultMonsterManager.MoveSpawnPoints(-1);
+      GameManager.instance.monsterManager.MoveSpawnPoints(-1);
       mainCamera.transform.position = cameraPosition - new Vector3(0, 16f, 0);
     }
   }

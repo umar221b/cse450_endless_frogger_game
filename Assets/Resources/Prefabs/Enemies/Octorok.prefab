@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 1793690102106996943}
   - component: {fileID: 1907374991123330487}
   m_Layer: 10
-  m_Name: Octorok 1
-  m_TagString: Untagged
+  m_Name: Octorok
+  m_TagString: Default Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

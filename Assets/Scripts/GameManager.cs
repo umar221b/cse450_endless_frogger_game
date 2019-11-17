@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
   public static GameManager instance = null;
 
-  public DefaultMonsterManager defaultMonsterManager;
+  public MonsterManager monsterManager;
   private LandscapeManager landscapeManager;
   private AudioSource audioSource;
   public int difficulty;
@@ -36,8 +36,8 @@ public class GameManager : MonoBehaviour
     //Get a component reference to the attached LandscapeManager script
     landscapeManager = GetComponent<LandscapeManager>();
     landscapeManager.init();
-
-    defaultMonsterManager = GetComponent<DefaultMonsterManager>();
+   
+    monsterManager = GetComponent<MonsterManager>();
     audioSource = GetComponent<AudioSource>();
   }
 
