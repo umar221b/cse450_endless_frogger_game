@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2711401721899939532}
   m_Layer: 10
   m_Name: Soldier
-  m_TagString: Default Monster
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
