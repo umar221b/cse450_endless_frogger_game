@@ -1894,7 +1894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7e33dad91f94457aa46363b647695b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockedCellProbability: 30
+  blockedCellProbability: 10
   COLS: 10
   ROWS: 48
   NUM_OF_PARTS: 3
@@ -1966,7 +1966,10 @@ MonoBehaviour:
   - {fileID: 8061722368158792935, guid: 822d123360501eb4690d7074e79bee93, type: 3}
   - {fileID: 3079826927371214852, guid: ce4f59d5f8e3c4235a575638639162ee, type: 3}
   - {fileID: 1793690102106996942, guid: a9f1a1d805ce746b7bd840d8e0ecff1f, type: 3}
+  - {fileID: 5091416560956406316, guid: 8476903b11ff84dae857d162105eb191, type: 3}
+  - {fileID: 3163769163875544331, guid: 8bd71f16c703142e0bebd6da6fd52415, type: 3}
   - {fileID: 4576298233224282093, guid: 8660d01d3d1f44c9fbd5944828be902b, type: 3}
+  - {fileID: 8731703371179024911, guid: 901a201f187c74a67a856f55b10900b6, type: 3}
   spawnPoint: {fileID: 1759277492930092153, guid: d66d3891b5e4f496fb7ee6d6e07c2d4b,
     type: 3}
   speed: 0.05
