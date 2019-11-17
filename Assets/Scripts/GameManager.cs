@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
   public ObstacleManager obstacleManager;
   private LandscapeManager landscapeManager;
-
+  private AudioSource audioSource;
   public int difficulty;
   public GameObject player;
   public GameObject grid;
@@ -26,18 +26,19 @@ public class GameManager : MonoBehaviour
 
     //Check if instance already exists
     if (instance == null)
-    //if not, set instance to this
-    instance = this;
+      //if not, set instance to this
+      instance = this;
     //If instance already exists and it's not this:
     else if (instance != this)
-    //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
-    Destroy(gameObject);
+      //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
+      Destroy(gameObject);
 
-    //Get a component reference to the attached BoardManager script
+    //Get a component reference to the attached LandscapeManager script
     landscapeManager = GetComponent<LandscapeManager>();
     landscapeManager.init();
 
     obstacleManager = GetComponent<ObstacleManager>();
+    audioSource = GetComponent<AudioSource>();
   }
 
   void Start() {
@@ -52,8 +53,12 @@ public class GameManager : MonoBehaviour
     highscoreText.text = score.ToString();
 
     // Trigger menu
-    if(Input.GetKey(KeyCode.Escape))
-      MenuManager.instance.Show();
+    if(Input.GetKeyDown(KeyCode.Escape)) {
+      if (MenuManager.instance.mainMenuActive())
+        MenuManager.instance.Hide();
+      else
+        MenuManager.instance.Show();
+    }
 
     if(gamePaused())
       return;
@@ -110,10 +115,12 @@ public class GameManager : MonoBehaviour
     return isPaused;
   }
   public void pause() {
+    audioSource.Pause();
     isPaused = true;
   }
 
   public void unPause() {
+    audioSource.Play();
     isPaused = false;
   }
 }
