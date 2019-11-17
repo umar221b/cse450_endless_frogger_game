@@ -7,13 +7,14 @@ public class GameManager : MonoBehaviour
 {
   public static GameManager instance = null;
 
-  public DefaultMonsterManager defaultMonsterManager;
+  public MonsterManager monsterManager;
   private LandscapeManager landscapeManager;
   private AudioSource audioSource;
   public int difficulty;
   public GameObject player;
   public GameObject grid;
   public GameObject mainCamera;
+  public GameObject Astar;
 
   public Text scoreText;
   public Text highscoreText;
@@ -36,8 +37,8 @@ public class GameManager : MonoBehaviour
     //Get a component reference to the attached LandscapeManager script
     landscapeManager = GetComponent<LandscapeManager>();
     landscapeManager.init();
-
-    defaultMonsterManager = GetComponent<DefaultMonsterManager>();
+   
+    monsterManager = GetComponent<MonsterManager>();
     audioSource = GetComponent<AudioSource>();
   }
 
@@ -123,4 +124,5 @@ public class GameManager : MonoBehaviour
     audioSource.Play();
     isPaused = false;
   }
+  
 }
