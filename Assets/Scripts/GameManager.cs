@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
   public static GameManager instance = null;
 
-  public ObstacleManager obstacleManager;
+  public DefaultMonsterManager defaultMonsterManager;
   private LandscapeManager landscapeManager;
   private AudioSource audioSource;
   public int difficulty;
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     landscapeManager = GetComponent<LandscapeManager>();
     landscapeManager.init();
 
-    obstacleManager = GetComponent<ObstacleManager>();
+    defaultMonsterManager = GetComponent<DefaultMonsterManager>();
     audioSource = GetComponent<AudioSource>();
   }
 

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleManager : MonoBehaviour
+public class DefaultMonsterManager : MonoBehaviour
 {
-    public GameObject[] obstacles;
+    public GameObject[] defaultMonsters;
     public GameObject spawnPoint;
 
     public float speed;
@@ -69,14 +69,14 @@ public class ObstacleManager : MonoBehaviour
         if (randSpawnPointNumber < spawnPointsLeft.Length)
         {
             spawnPointTransform = spawnPointsLeft[randSpawnPointNumber].transform;
-            curMonster = Instantiate(obstacles[Random.Range(0, obstacles.Length)], spawnPointTransform.position, Quaternion.identity);
-            curMonster.GetComponent<Obstacle>().init(1, monsterSpeed);
+            curMonster = Instantiate(defaultMonsters[Random.Range(0, defaultMonsters.Length)], spawnPointTransform.position, Quaternion.identity);
+            curMonster.GetComponent<DefaultMonster>().init(1, monsterSpeed);
         }
         else
         {
             spawnPointTransform = spawnPointsRight[randSpawnPointNumber - spawnPointsLeft.Length].transform;
-            curMonster = Instantiate(obstacles[Random.Range(0, obstacles.Length)], spawnPointTransform.position, Quaternion.identity);
-            curMonster.GetComponent<Obstacle>().init(-1, monsterSpeed);
+            curMonster = Instantiate(defaultMonsters[Random.Range(0, defaultMonsters.Length)], spawnPointTransform.position, Quaternion.identity);
+            curMonster.GetComponent<DefaultMonster>().init(-1, monsterSpeed);
         }
         Destroy(curMonster, 10f);
         StartCoroutine("MonsterSpawnTimer");

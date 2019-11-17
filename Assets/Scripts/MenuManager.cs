@@ -46,7 +46,7 @@ public class MenuManager : MonoBehaviour
   }
 
   public bool mainMenuActive() {
-    return mainMenu.active;
+    return mainMenu.activeSelf;
   }
 
   public void ShowMainMenu()

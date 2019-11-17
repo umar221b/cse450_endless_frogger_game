@@ -2,12 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-class GridMove : MonoBehaviour
+class PlayerController : MonoBehaviour
 {
 
   int activeWorldPart = 0;
   Animator anim;
-  public GameObject mainCamera;
+  private GameObject mainCamera;
   private float moveSpeed = 5f;
   private float gridSize = 1f;
   private enum Orientation
@@ -29,6 +29,7 @@ class GridMove : MonoBehaviour
   void Start()
   {
     anim = GetComponent<Animator>();
+    mainCamera = GameManager.instance.getMainCamera();
   }
 
   public void Update()
@@ -75,7 +76,7 @@ class GridMove : MonoBehaviour
     Vector3 cameraPosition = mainCamera.transform.position;
     float cameraHeight = mainCamera.GetComponent<Camera>().orthographicSize;
     if (transform.position.y > cameraPosition.y + cameraHeight) {
-      GameManager.instance.obstacleManager.MoveSpawnPoints(1);
+      GameManager.instance.defaultMonsterManager.MoveSpawnPoints(1);
       mainCamera.transform.position = cameraPosition + new Vector3(0, 16f, 0);
       int newActiveWorldPart = GameManager.instance.getActiveWorldPart();
       if (newActiveWorldPart > 1 && activeWorldPart != newActiveWorldPart) {
@@ -85,7 +86,7 @@ class GridMove : MonoBehaviour
     }
 
     else if (transform.position.y < cameraPosition.y - cameraHeight) {
-      GameManager.instance.obstacleManager.MoveSpawnPoints(-1);
+      GameManager.instance.defaultMonsterManager.MoveSpawnPoints(-1);
       mainCamera.transform.position = cameraPosition - new Vector3(0, 16f, 0);
     }
   }
