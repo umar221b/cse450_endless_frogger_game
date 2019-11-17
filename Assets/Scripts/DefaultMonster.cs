@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Obstacle : MonoBehaviour
+public class DefaultMonster : MonoBehaviour
 {
 
   Animator anim;
@@ -14,7 +14,7 @@ public class Obstacle : MonoBehaviour
 
   private void OnCollisionEnter2D(Collision2D other)
   {
-    if (other.gameObject.GetComponent<GridMove>())
+    if (other.gameObject.GetComponent<PlayerController>())
     {
       GameManager.instance.updateHighscore();
       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
