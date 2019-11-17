@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
   public GameObject player;
   public GameObject grid;
   public GameObject mainCamera;
+  public GameObject Astar;
 
   public Text scoreText;
   public Text highscoreText;
@@ -123,4 +124,5 @@ public class GameManager : MonoBehaviour
     audioSource.Play();
     isPaused = false;
   }
+  
 }

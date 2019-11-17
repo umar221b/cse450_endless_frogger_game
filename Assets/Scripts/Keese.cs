@@ -16,6 +16,6 @@ public class Keese : MonoBehaviour
 
     void OnBecameInvisible()
     {
-       //  Destroy(gameObject);
+         Destroy(gameObject);
     }
 }

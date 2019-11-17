@@ -8,6 +8,7 @@ class PlayerController : MonoBehaviour
   int activeWorldPart = 0;
   Animator anim;
   private GameObject mainCamera;
+  
   private float moveSpeed = 5f;
   private float gridSize = 1f;
   private enum Orientation
@@ -76,6 +77,8 @@ class PlayerController : MonoBehaviour
     Vector3 cameraPosition = mainCamera.transform.position;
     float cameraHeight = mainCamera.GetComponent<Camera>().orthographicSize;
     if (transform.position.y > cameraPosition.y + cameraHeight) {
+            //Destroy(GameObject.FindGameObjectWithTag("Keese"));
+         //   GameManager.instance.Astar.GetComponent<AstarPath>().graphs.GetValue.GetComponentInParent
       GameManager.instance.monsterManager.MoveSpawnPoints(1);
       mainCamera.transform.position = cameraPosition + new Vector3(0, 16f, 0);
       int newActiveWorldPart = GameManager.instance.getActiveWorldPart();
@@ -86,6 +89,8 @@ class PlayerController : MonoBehaviour
     }
 
     else if (transform.position.y < cameraPosition.y - cameraHeight) {
+      
+      //Destroy(GameObject.FindGameObjectWithTag("Keese"));
       GameManager.instance.monsterManager.MoveSpawnPoints(-1);
       mainCamera.transform.position = cameraPosition - new Vector3(0, 16f, 0);
     }
