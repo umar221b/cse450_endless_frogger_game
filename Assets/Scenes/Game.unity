@@ -1963,7 +1963,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsters:
+  - {fileID: 4803718717783469788, guid: 3d1e01942cfd341f3960f3c33c180c96, type: 3}
+  - {fileID: 2737780640347912783, guid: 14f1dbc6faaaa411188b827e4c684f79, type: 3}
+  - {fileID: 7786290072213480387, guid: 5e73f663e166549b18cd067baec6e017, type: 3}
   - {fileID: 8061722368158792935, guid: 822d123360501eb4690d7074e79bee93, type: 3}
+  - {fileID: 1651134648077594462, guid: 2a451f115f8aa4cfd9164960dcb83ad9, type: 3}
   - {fileID: 3079826927371214852, guid: ce4f59d5f8e3c4235a575638639162ee, type: 3}
   - {fileID: 1793690102106996942, guid: a9f1a1d805ce746b7bd840d8e0ecff1f, type: 3}
   - {fileID: 5091416560956406316, guid: 8476903b11ff84dae857d162105eb191, type: 3}
@@ -3238,7 +3242,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.9, y: 1.05}
+    oldSize: {x: 0.7758621, y: 0.9051724}
     newSize: {x: 0.9, y: 1.05}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

@@ -71,10 +71,10 @@ public class MonsterManager : MonoBehaviour
             spawnPointTransform = spawnPointsLeft[randSpawnPointNumber].transform;
             curMonster = Instantiate(monsters[Random.Range(0, monsters.Length)], spawnPointTransform.position, Quaternion.identity);
             switch (curMonster.tag) {
-                case "Default Monster":
-                curMonster.GetComponent<DefaultMonster>().init(1, monsterSpeed);
-                break;
                 case "Keese":
+                break;
+                default:
+                curMonster.GetComponent<DefaultMonster>().init(1, monsterSpeed);
                 break;
             }
         }
@@ -84,10 +84,10 @@ public class MonsterManager : MonoBehaviour
             curMonster = Instantiate(monsters[Random.Range(0, monsters.Length)], spawnPointTransform.position, Quaternion.identity);
             switch (curMonster.tag)
             {
-                case "Default Monster":
-                curMonster.GetComponent<DefaultMonster>().init(-1, monsterSpeed);
-                break;
                 case "Keese":
+                break;
+                default:
+                curMonster.GetComponent<DefaultMonster>().init(-1, monsterSpeed);
                 break;
             }
         }
