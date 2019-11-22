@@ -54,7 +54,7 @@ public class MonsterManager : MonoBehaviour
 
     void Update()
     {
-        monsterDelay = Random.Range(Mathf.Max(0.3f, minSpawnDelay - (GameManager.instance.difficulty * 0.08f)), Mathf.Max(0.6f, maxSpawnDelay - (GameManager.instance.difficulty * 0.08f)));
+        monsterDelay = Random.Range(Mathf.Max(0.3f, minSpawnDelay - (GameManager.instance.getDifficulty() * 0.08f)), Mathf.Max(0.6f, maxSpawnDelay - (GameManager.instance.getDifficulty() * 0.08f)));
     }
 
     IEnumerator MonsterSpawnTimer()
@@ -65,7 +65,7 @@ public class MonsterManager : MonoBehaviour
 
         Transform spawnPointTransform;
         GameObject curMonster;
-        float monsterSpeed = Mathf.Min(speed + (GameManager.instance.difficulty * 0.002f), 0.1f);
+        float monsterSpeed = Mathf.Min(speed + (GameManager.instance.getDifficulty() * 0.002f), 0.1f);
         if (randSpawnPointNumber < spawnPointsLeft.Length)
         {
             spawnPointTransform = spawnPointsLeft[randSpawnPointNumber].transform;

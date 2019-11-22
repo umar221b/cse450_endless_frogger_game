@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class DefaultMonster : MonoBehaviour
+public class DefaultMonster : Monster
 {
 
   Animator anim;
@@ -12,26 +11,15 @@ public class DefaultMonster : MonoBehaviour
   bool canStartMove = false;
   float speed;
 
-  private void OnCollisionEnter2D(Collision2D other)
-  {
-    if (other.gameObject.GetComponent<PlayerController>())
-    {
-      GameManager.instance.updateHighscore();
-      SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
+  public override void OnCollisionEnter2D(Collision2D other) {
+    base.OnCollisionEnter2D(other);
     if (other.gameObject.layer == LayerMask.NameToLayer("Blocked Cells")) {
       direction *= -1;
-      if (gameObject.tag != "One Way Monster" && direction == -1)
+      if (direction == -1)
         anim.Play("MoveLeft");
-      else if (gameObject.tag != "One Way Monster" && direction == 1)
+      else if (direction == 1)
         anim.Play("MoveRight");
     }
-  }
-
-  void OnBecameInvisible()
-  {
-    Destroy(gameObject);
   }
 
   public void init(int direction, float speed = 0.1f)

@@ -16,7 +16,7 @@ public class AIMovement : MonoBehaviour
     }
     public void OnPathComplete(Path p)
     {
-        Debug.Log("Get a path" + p.error);
+        // Debug.Log("Get a path" + p.error);
     }
 
     // Update is called once per frame
