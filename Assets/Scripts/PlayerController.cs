@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Pathfinding;
 
 class PlayerController : MonoBehaviour
 {
@@ -81,6 +82,7 @@ class PlayerController : MonoBehaviour
          //   GameManager.instance.Astar.GetComponent<AstarPath>().graphs.GetValue.GetComponentInParent
       GameManager.instance.monsterManager.MoveSpawnPoints(1);
       mainCamera.transform.position = cameraPosition + new Vector3(0, 16f, 0);
+            moveAStarGrid(mainCamera.transform.position);
       int newActiveWorldPart = GameManager.instance.getActiveWorldPart();
       if (newActiveWorldPart > 1 && activeWorldPart != newActiveWorldPart) {
         GameManager.instance.generateNextWorldPart();
@@ -93,8 +95,10 @@ class PlayerController : MonoBehaviour
       //Destroy(GameObject.FindGameObjectWithTag("Keese"));
       GameManager.instance.monsterManager.MoveSpawnPoints(-1);
       mainCamera.transform.position = cameraPosition - new Vector3(0, 16f, 0);
+      moveAStarGrid(mainCamera.transform.position);
+
+        }
     }
-  }
 
   public IEnumerator move(Transform transform)
   {
@@ -145,4 +149,13 @@ class PlayerController : MonoBehaviour
     anim.SetBool("isMoving", isMoving);
     yield return 0;
   }
+    void moveAStarGrid(Vector3 position) {
+        GridGraph gg = AstarPath.active.data.gridGraph;
+        position.z = 0;
+        gg.center = position;
+        gg.UpdateTransform();
+
+        gg.Scan();
+    }
+
 }
