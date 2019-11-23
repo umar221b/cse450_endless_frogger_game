@@ -28,11 +28,10 @@ public class GameManager : MonoBehaviour
 
   public void lose() {
     recordNewHighscore();
-    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    SceneManager.LoadScene("Main Menu");
   }
 
   void Awake() {
-
     //Check if instance already exists
     if (instance == null)
       //if not, set instance to this
