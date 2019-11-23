@@ -34,9 +34,10 @@ class PlayerController : MonoBehaviour
     anim = GetComponent<Animator>();
     mainCamera = GameManager.instance.getMainCamera();
     monsterManager = GameManager.instance.getMonsterManager();
-  }
+       
+    }
 
-  public void Update()
+    public void Update()
   {
     if(GameManager.instance.gamePaused())
     return;
@@ -75,11 +76,35 @@ class PlayerController : MonoBehaviour
       }
     }
   }
-
+    bool started = true;
   public void LateUpdate() {
     Vector3 cameraPosition = mainCamera.transform.position;
     float cameraHeight = mainCamera.GetComponent<Camera>().orthographicSize;
-    if (transform.position.y > cameraPosition.y + cameraHeight) {
+        //print("transform");
+        //print(transform.position.y);
+        //print(cameraPosition.y);
+        if (started)
+
+        {
+            moveAStarGrid(mainCamera.transform.position);
+            print("something");
+            started = false;
+        }
+            //    
+
+        //print("someting");
+        //    NavGraph[] graphs = AstarPath.active.data.graphs;
+        //    foreach (NavGraph graph in graphs)
+        //    {
+        //        GridGraph gg = (GridGraph)graph;
+                
+        //        cameraPosition.z = 0;
+        //        gg.center = cameraPosition;
+        //        gg.Scan();
+        //    }
+     //   }
+
+      if (transform.position.y > cameraPosition.y + cameraHeight) {
       //Destroy(GameObject.FindGameObjectWithTag("Keese"));
       //   GameManager.instance.Astar.GetComponent<AstarPath>().graphs.GetValue.GetComponentInParent
       monsterManager.MoveSpawnPoints(1);

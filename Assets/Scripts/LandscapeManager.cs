@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Pathfinding;
+
 
 public class LandscapeManager : MonoBehaviour
 {
@@ -30,24 +32,40 @@ public class LandscapeManager : MonoBehaviour
   public Sprite boundarySprite;
   public Sprite[] normalCellSprites;
 
-  public void init() {
-    player = GameManager.instance.getPlayer();
-    grid = GameManager.instance.getGrid();
-    mainCamera = GameManager.instance.getMainCamera();
-    origin = mainCamera.GetComponent<Camera>().ViewportToWorldPoint(mainCamera.transform.position);
-    intOrigin = Vector3Int.FloorToInt(origin);
-    ground = grid.transform.Find("Ground").gameObject.GetComponent<Tilemap>();
-    // onGround = grid.transform.Find("On Ground").gameObject.GetComponent<Tilemap>();
-    blockingCells = grid.transform.Find("Blocking Cells").gameObject.GetComponent<Tilemap>();
-    boundaries = grid.transform.Find("Boundaries").gameObject.GetComponent<Tilemap>();
-    world = new Tile[ROWS][];
-    cellType = new char[ROWS + 1, COLS];
-
-    generateWorldPart(0, true);
-    displayWorldPart(0);
-    generateBoundaryRow(-1);
-
-    generateWorldPart(1);
+    public void init() {
+        player = GameManager.instance.getPlayer();
+        grid = GameManager.instance.getGrid();
+        mainCamera = GameManager.instance.getMainCamera();
+        origin = mainCamera.GetComponent<Camera>().ViewportToWorldPoint(mainCamera.transform.position);
+        intOrigin = Vector3Int.FloorToInt(origin);
+        ground = grid.transform.Find("Ground").gameObject.GetComponent<Tilemap>();
+        // onGround = grid.transform.Find("On Ground").gameObject.GetComponent<Tilemap>();
+        blockingCells = grid.transform.Find("Blocking Cells").gameObject.GetComponent<Tilemap>();
+        boundaries = grid.transform.Find("Boundaries").gameObject.GetComponent<Tilemap>();
+        world = new Tile[ROWS][];
+        cellType = new char[ROWS + 1, COLS];
+        //GridGraph gg = new GridGraph();
+        //gg.Scan();
+        // GameObject gg = player.GetComponent<PlayerController>().
+        
+        generateWorldPart(0, true);
+        //NavGraph[] graphs = AstarPath.active.data.graphs;
+        //foreach (NavGraph graph in graphs)
+        //{
+        //    Vector3 pos = Camera.main.transform.position;
+             
+        //    GridGraph gg = (GridGraph)graph;
+        //    origin.z = 0;
+        //    gg.center = pos;
+        //    gg.Scan();
+        //    AstarPath.active.Scan();
+        //}
+            displayWorldPart(0);
+        
+        
+        generateBoundaryRow(-1);
+       
+        generateWorldPart(1);
     displayWorldPart(1);
     generateWorldPart(2);
     displayWorldPart(2);
@@ -220,6 +238,7 @@ public class LandscapeManager : MonoBehaviour
       world[i] = buildRow(i + 1);
       connectPath(i + 1);
     }
+
   }
 
   public void displayWorldPart(int part) {
