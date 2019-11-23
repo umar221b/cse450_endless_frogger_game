@@ -140,7 +140,6 @@ public class LandscapeManager : MonoBehaviour
           case 'X':
           if (seenP) {
             foreach (int nIndex in nIndices) {
-              prevCellType[rowNum, nIndex] = cellType[rowNum, nIndex];
               cellType[rowNum, nIndex] = 'P';
             }
           }
