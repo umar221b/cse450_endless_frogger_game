@@ -9,7 +9,7 @@ class PlayerController : MonoBehaviour
   int activeWorldPart = 0;
   Animator anim;
   private GameObject mainCamera;
-  
+
   private float moveSpeed = 5f;
   private float gridSize = 1f;
   private enum Orientation
@@ -18,6 +18,7 @@ class PlayerController : MonoBehaviour
     Vertical
   };
   private Orientation gridOrientation = Orientation.Vertical;
+  private MonsterManager monsterManager;
   private Vector2 input;
   private bool isMoving = false;
   private Vector3 startPosition;
@@ -32,12 +33,13 @@ class PlayerController : MonoBehaviour
   {
     anim = GetComponent<Animator>();
     mainCamera = GameManager.instance.getMainCamera();
+    monsterManager = GameManager.instance.getMonsterManager();
   }
 
   public void Update()
   {
     if(GameManager.instance.gamePaused())
-      return;
+    return;
 
     input = new Vector2(0, 0);
     int onlyOneStep = 0;
@@ -78,11 +80,11 @@ class PlayerController : MonoBehaviour
     Vector3 cameraPosition = mainCamera.transform.position;
     float cameraHeight = mainCamera.GetComponent<Camera>().orthographicSize;
     if (transform.position.y > cameraPosition.y + cameraHeight) {
-            //Destroy(GameObject.FindGameObjectWithTag("Keese"));
-         //   GameManager.instance.Astar.GetComponent<AstarPath>().graphs.GetValue.GetComponentInParent
-      GameManager.instance.monsterManager.MoveSpawnPoints(1);
+      //Destroy(GameObject.FindGameObjectWithTag("Keese"));
+      //   GameManager.instance.Astar.GetComponent<AstarPath>().graphs.GetValue.GetComponentInParent
+      monsterManager.MoveSpawnPoints(1);
       mainCamera.transform.position = cameraPosition + new Vector3(0, 16f, 0);
-            moveAStarGrid(mainCamera.transform.position);
+      moveAStarGrid(mainCamera.transform.position);
       int newActiveWorldPart = GameManager.instance.getActiveWorldPart();
       if (newActiveWorldPart > 1 && activeWorldPart != newActiveWorldPart) {
         GameManager.instance.generateNextWorldPart();
@@ -91,14 +93,14 @@ class PlayerController : MonoBehaviour
     }
 
     else if (transform.position.y < cameraPosition.y - cameraHeight) {
-      
+
       //Destroy(GameObject.FindGameObjectWithTag("Keese"));
-      GameManager.instance.monsterManager.MoveSpawnPoints(-1);
+      monsterManager.MoveSpawnPoints(-1);
       mainCamera.transform.position = cameraPosition - new Vector3(0, 16f, 0);
       moveAStarGrid(mainCamera.transform.position);
 
-        }
     }
+  }
 
   public IEnumerator move(Transform transform)
   {
@@ -149,14 +151,14 @@ class PlayerController : MonoBehaviour
     anim.SetBool("isMoving", isMoving);
     yield return 0;
   }
-    void moveAStarGrid(Vector3 position) {
-        NavGraph[] graphs = AstarPath.active.data.graphs;
-        foreach (NavGraph graph in graphs) {
-            GridGraph gg = (GridGraph)graph;
-            position.z = 0;
-            gg.center = position;
-            gg.Scan();
-        }
-    }
 
+  void moveAStarGrid(Vector3 position) {
+    NavGraph[] graphs = AstarPath.active.data.graphs;
+    foreach (NavGraph graph in graphs) {
+      GridGraph gg = (GridGraph)graph;
+      position.z = 0;
+      gg.center = position;
+      gg.Scan();
+    }
+  }
 }

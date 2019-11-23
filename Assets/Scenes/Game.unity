@@ -1370,7 +1370,7 @@ MonoBehaviour:
   manualDebugFloorRoof: 0
   showSearchTree: 0
   unwalkableNodeDebugSize: 0.3
-  logPathResults: 1
+  logPathResults: 0
   maxNearestNodeDistance: 100
   scanOnStartup: 1
   fullGetNearestSearch: 0
@@ -1926,7 +1926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7e33dad91f94457aa46363b647695b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockedCellProbability: 20
+  blockedCellProbability: 30
   COLS: 10
   ROWS: 48
   NUM_OF_PARTS: 3
@@ -1974,14 +1974,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abd3830c5e8e049e8b7814b513bf5a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterManager: {fileID: 0}
-  difficulty: 0
   player: {fileID: 2097755566}
   grid: {fileID: 1410813851}
   mainCamera: {fileID: 519420028}
-  Astar: {fileID: 642671035}
   scoreText: {fileID: 42447175}
   highscoreText: {fileID: 1803605298}
+  difficultyModifier: 1
+  difficultyOffset: 0
 --- !u!114 &943641744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2008,7 +2007,6 @@ MonoBehaviour:
   - {fileID: 8731703371179024911, guid: 901a201f187c74a67a856f55b10900b6, type: 3}
   spawnPoint: {fileID: 1759277492930092153, guid: d66d3891b5e4f496fb7ee6d6e07c2d4b,
     type: 3}
-  speed: 0.05
   minSpawnDelay: 1
   maxSpawnDelay: 3
 --- !u!82 &943641745

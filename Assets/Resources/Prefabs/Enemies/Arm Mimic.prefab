@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4803718717783469761}
   - component: {fileID: 4803718717783469760}
   - component: {fileID: 4803718717783469791}
-  - component: {fileID: 4803718717783469790}
   - component: {fileID: 4803718717783469789}
+  - component: {fileID: 320591608687449342}
   m_Layer: 0
   m_Name: Arm Mimic
   m_TagString: Untagged
@@ -116,18 +116,6 @@ PolygonCollider2D:
       - {x: 0.35, y: -0.4}
       - {x: 0.35, y: 0.3}
       - {x: 0.3, y: 0.4}
---- !u!114 &4803718717783469790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4803718717783469788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90b632689e4ce9349b7202d6f16c38e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &4803718717783469789
 Animator:
   serializedVersion: 3
@@ -147,3 +135,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &320591608687449342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4803718717783469788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488d4f8770ef642e2be9adfe7caeac4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

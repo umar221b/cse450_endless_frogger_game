@@ -11,11 +11,10 @@ GameObject:
   - component: {fileID: 8731703371179024907}
   - component: {fileID: 8731703371179024904}
   - component: {fileID: 8731703371179024905}
-  - component: {fileID: 8731703371179024910}
   - component: {fileID: 2113068344089602576}
   m_Layer: 0
   m_Name: Spark
-  m_TagString: One Way Monster
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,18 +116,6 @@ PolygonCollider2D:
       - {x: 0.4, y: -0.35}
       - {x: 0.4, y: 0.35}
       - {x: 0.35, y: 0.4}
---- !u!114 &8731703371179024910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8731703371179024911}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90b632689e4ce9349b7202d6f16c38e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &2113068344089602576
 Animator:
   serializedVersion: 3

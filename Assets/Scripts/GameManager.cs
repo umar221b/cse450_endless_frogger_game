@@ -3,26 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Pathfinding;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
   public static GameManager instance = null;
 
-  public MonsterManager monsterManager;
+  private MonsterManager monsterManager;
   private LandscapeManager landscapeManager;
   private AudioSource audioSource;
-  public int difficulty;
+
   public GameObject player;
   public GameObject grid;
   public GameObject mainCamera;
-  public GameObject Astar;
-
   public Text scoreText;
   public Text highscoreText;
 
+  public int difficultyModifier;
+  public int difficultyOffset;
+  private int difficulty;
   private int score;
   private int highscore;
   private bool isPaused;
+
+  public void restartGame() {
+    if (score > highscore)
+      updateHighscore();
+    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+  }
 
   void Awake() {
 
@@ -48,10 +56,10 @@ void Start() {
   }
 
   void Update() {
-    difficulty = getActiveWorldPart();
-    scoreText.text = score.ToString();
+    difficulty = (int) getActiveWorldPart() * difficultyModifier + difficultyOffset;
+    updateScoreText();
     if (score > highscore)
-    highscoreText.text = score.ToString();
+      updateHighscoreText();
 
     // Trigger menu
     if(Input.GetKeyDown(KeyCode.Escape)) {
@@ -63,6 +71,14 @@ void Start() {
 
     if(gamePaused())
       return;
+  }
+
+  public void updateScoreText() {
+    scoreText.text = score.ToString();
+  }
+
+  public void updateHighscoreText() {
+    highscoreText.text = score.ToString();
   }
 
   public int getActiveWorldPart() {
@@ -80,6 +96,14 @@ void Start() {
     return mainCamera;
   }
 
+  public MonsterManager getMonsterManager() {
+    return monsterManager;
+  }
+
+  public int getDifficulty() {
+    return difficulty;
+  }
+
   public int getScore() {
     return score;
   }
@@ -93,10 +117,8 @@ void Start() {
   }
 
   public void updateHighscore() {
-    if (score > highscore) {
-      this.highscore = score;
-      PlayerPrefs.SetInt("highscore", this.highscore);
-    }
+    this.highscore = score;
+    PlayerPrefs.SetInt("highscore", this.highscore);
   }
 
   public void resetHighscore() {
@@ -109,12 +131,12 @@ void Start() {
     landscapeManager.generateBoundaryRow(curPart * 16 - 17);
     landscapeManager.generateWorldPart((curPart + 1) % 3);
     landscapeManager.displayWorldPart(curPart + 1);
-
   }
 
   public bool gamePaused() {
     return isPaused;
   }
+
   public void pause() {
     audioSource.Pause();
     isPaused = true;
@@ -124,5 +146,4 @@ void Start() {
     audioSource.Play();
     isPaused = false;
   }
-  
 }
