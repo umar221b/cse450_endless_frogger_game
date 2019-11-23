@@ -12,10 +12,7 @@ GameObject:
   - component: {fileID: 2737780640347912780}
   - component: {fileID: 2737780640347912781}
   - component: {fileID: 897248903342946804}
-  - component: {fileID: 5853000491109128864}
-  - component: {fileID: 7934869982184374265}
-  - component: {fileID: -1929218152075579405}
-  - component: {fileID: 779587373910989800}
+  - component: {fileID: 2737780640347912782}
   m_Layer: 0
   m_Name: Darknut
   m_TagString: Untagged
@@ -117,18 +114,6 @@ PolygonCollider2D:
       - {x: 0.35, y: -0.4}
       - {x: 0.35, y: 0.3}
       - {x: 0.25, y: 0.4}
---- !u!114 &2737780640347912782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2737780640347912783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 488d4f8770ef642e2be9adfe7caeac4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &897248903342946804
 Animator:
   serializedVersion: 3
@@ -148,7 +133,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5853000491109128864
+--- !u!114 &2737780640347912782
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,69 +142,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2737780640347912783}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1bf73e49da48c949a7c7f3f841a0cbd, type: 3}
+  m_Script: {fileID: 11500000, guid: 488d4f8770ef642e2be9adfe7caeac4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7934869982184374265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2737780640347912783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d9a8283dd6ac2741a9d8e7d39c616f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-1929218152075579405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2737780640347912783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  drawGizmos: 1
-  detailedGizmos: 1
-  startEndModifier:
-    addPoints: 0
-    exactStartPoint: 3
-    exactEndPoint: 3
-    useRaycasting: 0
-    mask:
-      serializedVersion: 2
-      m_Bits: 4294967295
-    useGraphRaycasting: 0
-  traversableTags: -1
-  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  graphMask:
-    value: 2
---- !u!114 &779587373910989800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2737780640347912783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 847a14d4dc9cc43679ab34fc78e0182f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 2
-  repathRate: 0.5
-  canSearch: 1
-  canMove: 1
-  speed: 3
-  orientation: 0
-  enableRotation: 0
-  rotationSpeed: 10
-  interpolatePathSwitches: 1
-  switchPathInterpolationSpeed: 5
-  targetCompatibility: {fileID: 0}
