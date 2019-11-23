@@ -7,14 +7,13 @@ public class MonsterManager : MonoBehaviour
     public GameObject[] monsters;
     public GameObject spawnPoint;
 
-    public float speed;
     public float minSpawnDelay;
     public float maxSpawnDelay;
 
-    GameObject[] spawnPointsLeft;
-    GameObject[] spawnPointsRight;
+    private GameObject[] spawnPointsLeft;
+    private GameObject[] spawnPointsRight;
 
-    float monsterDelay;
+    private float monsterDelay;
 
     void Awake() {
       spawnPointsLeft = new GameObject[15];
@@ -47,14 +46,13 @@ public class MonsterManager : MonoBehaviour
         StartCoroutine("MonsterSpawnTimer");
     }
 
-    void StopExecution()
-    {
-        StopCoroutine("MonsterSpawnTimer");
-    }
-
     void Update()
     {
-        monsterDelay = Random.Range(Mathf.Max(0.3f, minSpawnDelay - (GameManager.instance.getDifficulty() * 0.08f)), Mathf.Max(0.6f, maxSpawnDelay - (GameManager.instance.getDifficulty() * 0.08f)));
+        monsterDelay = calcMonsterDelay();
+    }
+
+    float calcMonsterDelay() {
+      return Random.Range(Mathf.Max(0.3f, minSpawnDelay - (GameManager.instance.getDifficulty() * 0.08f)), Mathf.Max(0.6f, maxSpawnDelay - (GameManager.instance.getDifficulty() * 0.08f)));
     }
 
     IEnumerator MonsterSpawnTimer()
@@ -62,35 +60,13 @@ public class MonsterManager : MonoBehaviour
         yield return new WaitForSeconds(monsterDelay);
 
         int randSpawnPointNumber = Random.Range(0, spawnPointsLeft.Length + spawnPointsRight.Length);
-
         Transform spawnPointTransform;
-        GameObject curMonster;
-        float monsterSpeed = Mathf.Min(speed + (GameManager.instance.getDifficulty() * 0.002f), 0.1f);
         if (randSpawnPointNumber < spawnPointsLeft.Length)
-        {
-            spawnPointTransform = spawnPointsLeft[randSpawnPointNumber].transform;
-            curMonster = Instantiate(monsters[Random.Range(0, monsters.Length)], spawnPointTransform.position, Quaternion.identity);
-            switch (curMonster.tag) {
-                case "Keese":
-                break;
-                default:
-                curMonster.GetComponent<DefaultMonster>().init(1, monsterSpeed);
-                break;
-            }
-        }
+          spawnPointTransform = spawnPointsLeft[randSpawnPointNumber].transform;
         else
-        {
-            spawnPointTransform = spawnPointsRight[randSpawnPointNumber - spawnPointsLeft.Length].transform;
-            curMonster = Instantiate(monsters[Random.Range(0, monsters.Length)], spawnPointTransform.position, Quaternion.identity);
-            switch (curMonster.tag)
-            {
-                case "Keese":
-                break;
-                default:
-                curMonster.GetComponent<DefaultMonster>().init(-1, monsterSpeed);
-                break;
-            }
-        }
+          spawnPointTransform = spawnPointsLeft[randSpawnPointNumber - spawnPointsLeft.Length].transform;
+        GameObject curMonster = Instantiate(monsters[Random.Range(0, monsters.Length)], spawnPointTransform.position, Quaternion.identity);
+
         Destroy(curMonster, 10f);
         StartCoroutine("MonsterSpawnTimer");
     }

@@ -1948,7 +1948,7 @@ MonoBehaviour:
   scoreText: {fileID: 42447175}
   highscoreText: {fileID: 1803605298}
   difficultyModifier: 1
-  difficultyOffset: 100
+  difficultyOffset: 0
 --- !u!114 &943641744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1975,7 +1975,6 @@ MonoBehaviour:
   - {fileID: 8731703371179024911, guid: 901a201f187c74a67a856f55b10900b6, type: 3}
   spawnPoint: {fileID: 1759277492930092153, guid: d66d3891b5e4f496fb7ee6d6e07c2d4b,
     type: 3}
-  speed: 0.05
   minSpawnDelay: 1
   maxSpawnDelay: 3
 --- !u!82 &943641745
