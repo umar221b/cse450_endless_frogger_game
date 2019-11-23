@@ -109,12 +109,12 @@ class PlayerController : MonoBehaviour
       //   GameManager.instance.Astar.GetComponent<AstarPath>().graphs.GetValue.GetComponentInParent
       monsterManager.MoveSpawnPoints(1);
       mainCamera.transform.position = cameraPosition + new Vector3(0, 16f, 0);
-      moveAStarGrid(mainCamera.transform.position);
       int newActiveWorldPart = GameManager.instance.getActiveWorldPart();
       if (newActiveWorldPart > 1 && activeWorldPart != newActiveWorldPart) {
         GameManager.instance.generateNextWorldPart();
         activeWorldPart = newActiveWorldPart;
       }
+      moveAStarGrid(mainCamera.transform.position);
     }
 
     else if (transform.position.y < cameraPosition.y - cameraHeight) {

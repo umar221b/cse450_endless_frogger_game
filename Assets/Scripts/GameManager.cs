@@ -26,14 +26,12 @@ public class GameManager : MonoBehaviour
   private int highscore;
   private bool isPaused;
 
-  public void restartGame() {
-    if (score > highscore)
-      updateHighscore();
-    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+  public void lose() {
+    recordNewHighscore();
+    SceneManager.LoadScene("Main Menu");
   }
 
   void Awake() {
-
     //Check if instance already exists
     if (instance == null)
       //if not, set instance to this
@@ -49,18 +47,13 @@ public class GameManager : MonoBehaviour
     monsterManager = GetComponent<MonsterManager>();
     audioSource = GetComponent<AudioSource>();
   }
-  
+
 void Start() {
-    this.highscore = PlayerPrefs.GetInt("highscore");
-    highscoreText.text = highscore.ToString();
+    highscore = PlayerPrefs.GetInt("highscore");
+    updateHighscoreText();
   }
 
   void Update() {
-    difficulty = (int) getActiveWorldPart() * difficultyModifier + difficultyOffset;
-    updateScoreText();
-    if (score > highscore)
-      updateHighscoreText();
-
     // Trigger menu
     if(Input.GetKeyDown(KeyCode.Escape)) {
       if (MenuManager.instance.mainMenuIsActive())
@@ -71,6 +64,13 @@ void Start() {
 
     if(gamePaused())
       return;
+
+    difficulty = (int) getActiveWorldPart() * difficultyModifier + difficultyOffset;
+    updateScoreText();
+    if (score > highscore) {
+      updateHighscore();
+      updateHighscoreText();
+    }
   }
 
   public void updateScoreText() {
@@ -78,7 +78,7 @@ void Start() {
   }
 
   public void updateHighscoreText() {
-    highscoreText.text = score.ToString();
+    highscoreText.text = highscore.ToString();
   }
 
   public int getActiveWorldPart() {
@@ -118,12 +118,19 @@ void Start() {
 
   public void updateHighscore() {
     this.highscore = score;
+  }
+
+  public void recordNewHighscore() {
+    if (score < highscore)
+      return;
+    this.highscore = score;
     PlayerPrefs.SetInt("highscore", this.highscore);
   }
 
   public void resetHighscore() {
     this.highscore = 0;
     PlayerPrefs.SetInt("highscore", 0);
+    updateHighscoreText();
   }
 
   public void generateNextWorldPart() {
