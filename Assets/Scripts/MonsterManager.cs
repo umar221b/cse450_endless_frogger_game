@@ -64,7 +64,7 @@ public class MonsterManager : MonoBehaviour
         if (randSpawnPointNumber < spawnPointsLeft.Length)
           spawnPointTransform = spawnPointsLeft[randSpawnPointNumber].transform;
         else
-          spawnPointTransform = spawnPointsLeft[randSpawnPointNumber - spawnPointsLeft.Length].transform;
+          spawnPointTransform = spawnPointsRight[randSpawnPointNumber - spawnPointsLeft.Length].transform;
         GameObject curMonster = Instantiate(monsters[Random.Range(0, monsters.Length)], spawnPointTransform.position, Quaternion.identity);
 
         Destroy(curMonster, 10f);
