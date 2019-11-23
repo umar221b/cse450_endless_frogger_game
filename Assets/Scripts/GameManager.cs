@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Pathfinding;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -45,12 +46,11 @@ public class GameManager : MonoBehaviour
     //Get a component reference to the attached LandscapeManager script
     landscapeManager = GetComponent<LandscapeManager>();
     landscapeManager.init();
-
     monsterManager = GetComponent<MonsterManager>();
     audioSource = GetComponent<AudioSource>();
   }
-
-  void Start() {
+  
+void Start() {
     this.highscore = PlayerPrefs.GetInt("highscore");
     highscoreText.text = highscore.ToString();
   }

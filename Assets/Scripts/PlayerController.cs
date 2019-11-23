@@ -153,10 +153,12 @@ class PlayerController : MonoBehaviour
   }
 
   void moveAStarGrid(Vector3 position) {
-    GridGraph gg = AstarPath.active.data.gridGraph;
-    position.z = 0;
-    gg.center = position;
-    gg.UpdateTransform();
-    gg.Scan();
+    NavGraph[] graphs = AstarPath.active.data.graphs;
+    foreach (NavGraph graph in graphs) {
+      GridGraph gg = (GridGraph)graph;
+      position.z = 0;
+      gg.center = position;
+      gg.Scan();
+    }
   }
 }
