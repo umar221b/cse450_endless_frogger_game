@@ -7,10 +7,15 @@ public class AIMovement : MonoBehaviour
 {
     // Start is called before the first frame update
     private Transform targetPosition;
+    private GameObject player;
+    private Seeker seeker;
+
     void Start()
     {
-        targetPosition = GameManager.instance.getPlayer().transform;
-        Seeker seeker = GetComponent<Seeker>();
+        player = GameManager.instance.getPlayer();
+        targetPosition = player.transform;
+
+        seeker = GetComponent<Seeker>();
         seeker.StartPath(transform.position, targetPosition.position, OnPathComplete);
 
     }
@@ -22,8 +27,7 @@ public class AIMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        targetPosition = GameManager.instance.getPlayer().transform;
-        Seeker seeker = GetComponent<Seeker>();
+        targetPosition = player.transform;
         seeker.StartPath(transform.position, targetPosition.position, OnPathComplete);
     }
 }
