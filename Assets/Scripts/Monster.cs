@@ -8,7 +8,7 @@ public class Monster : MonoBehaviour {
 
   public virtual void OnCollisionEnter2D(Collision2D other) {
     if (other.gameObject.GetComponent<PlayerController>()) {
-      GameManager.instance.restartGame();
+      GameManager.instance.lose();
     }
   }
 
