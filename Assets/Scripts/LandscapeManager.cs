@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Pathfinding;
+
 
 public class LandscapeManager : MonoBehaviour
 {
@@ -238,6 +240,7 @@ public class LandscapeManager : MonoBehaviour
       world[i] = buildRow(i + 1);
       connectPath(i + 1);
     }
+
   }
 
   public void displayWorldPart(int part) {
