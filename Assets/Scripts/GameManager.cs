@@ -2,61 +2,83 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Pathfinding;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
   public static GameManager instance = null;
 
-  public ObstacleManager obstacleManager;
+  private MonsterManager monsterManager;
   private LandscapeManager landscapeManager;
+  private AudioSource audioSource;
 
-  public int difficulty;
   public GameObject player;
   public GameObject grid;
   public GameObject mainCamera;
-
   public Text scoreText;
   public Text highscoreText;
 
+  public int difficultyModifier;
+  public int difficultyOffset;
+  private int difficulty;
   private int score;
   private int highscore;
   private bool isPaused;
+
+  public void restartGame() {
+    if (score > highscore)
+      updateHighscore();
+    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+  }
 
   void Awake() {
 
     //Check if instance already exists
     if (instance == null)
-    //if not, set instance to this
-    instance = this;
+      //if not, set instance to this
+      instance = this;
     //If instance already exists and it's not this:
     else if (instance != this)
-    //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
-    Destroy(gameObject);
+      //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
+      Destroy(gameObject);
 
-    //Get a component reference to the attached BoardManager script
+    //Get a component reference to the attached LandscapeManager script
     landscapeManager = GetComponent<LandscapeManager>();
     landscapeManager.init();
-
-    obstacleManager = GetComponent<ObstacleManager>();
+    monsterManager = GetComponent<MonsterManager>();
+    audioSource = GetComponent<AudioSource>();
   }
-
-  void Start() {
+  
+void Start() {
     this.highscore = PlayerPrefs.GetInt("highscore");
     highscoreText.text = highscore.ToString();
   }
 
   void Update() {
-    difficulty = getActiveWorldPart();
-    scoreText.text = score.ToString();
+    difficulty = (int) getActiveWorldPart() * difficultyModifier + difficultyOffset;
+    updateScoreText();
     if (score > highscore)
-    highscoreText.text = score.ToString();
+      updateHighscoreText();
 
     // Trigger menu
-    if(Input.GetKey(KeyCode.Escape))
-      MenuManager.instance.Show();
+    if(Input.GetKeyDown(KeyCode.Escape)) {
+      if (MenuManager.instance.mainMenuIsActive())
+        MenuManager.instance.Hide();
+      else
+        MenuManager.instance.Show();
+    }
 
     if(gamePaused())
       return;
+  }
+
+  public void updateScoreText() {
+    scoreText.text = score.ToString();
+  }
+
+  public void updateHighscoreText() {
+    highscoreText.text = score.ToString();
   }
 
   public int getActiveWorldPart() {
@@ -74,6 +96,14 @@ public class GameManager : MonoBehaviour
     return mainCamera;
   }
 
+  public MonsterManager getMonsterManager() {
+    return monsterManager;
+  }
+
+  public int getDifficulty() {
+    return difficulty;
+  }
+
   public int getScore() {
     return score;
   }
@@ -87,10 +117,8 @@ public class GameManager : MonoBehaviour
   }
 
   public void updateHighscore() {
-    if (score > highscore) {
-      this.highscore = score;
-      PlayerPrefs.SetInt("highscore", this.highscore);
-    }
+    this.highscore = score;
+    PlayerPrefs.SetInt("highscore", this.highscore);
   }
 
   public void resetHighscore() {
@@ -103,17 +131,19 @@ public class GameManager : MonoBehaviour
     landscapeManager.generateBoundaryRow(curPart * 16 - 17);
     landscapeManager.generateWorldPart((curPart + 1) % 3);
     landscapeManager.displayWorldPart(curPart + 1);
-
   }
 
   public bool gamePaused() {
     return isPaused;
   }
+
   public void pause() {
+    audioSource.Pause();
     isPaused = true;
   }
 
   public void unPause() {
+    audioSource.Play();
     isPaused = false;
   }
 }

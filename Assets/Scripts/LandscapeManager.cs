@@ -117,7 +117,7 @@ public class LandscapeManager : MonoBehaviour
   }
 
   int blockedCellProbabilityWithDifficulty() {
-    return (int) Mathf.Max(blockedCellProbability - GameManager.instance.difficulty * 0.66666f, 7f);
+    return (int) Mathf.Max(blockedCellProbability - GameManager.instance.getDifficulty() * 0.66666f, 7f);
   }
 
   char randomXWithProbability(int prob) {
