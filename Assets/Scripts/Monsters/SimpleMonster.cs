@@ -19,7 +19,8 @@ public class SimpleMonster : Monster
 
   public override void Update()
   {
-    base.Update();
+    if(GameManager.instance.gamePaused())
+      return;
     transform.position += new Vector3(direction * speed, 0, 0);
   }
 
