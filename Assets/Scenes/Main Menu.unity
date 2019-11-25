@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 321581142}
   - component: {fileID: 321581141}
   m_Layer: 5
-  m_Name: Back
+  m_Name: Back Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 664022597}
   - component: {fileID: 664022596}
   m_Layer: 5
-  m_Name: Text
+  m_Name: How To Play Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -479,13 +479,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.9
-  m_Text: 'PRESS ARROW KEYS TO MOVE THROUGH THE GAME AVOIDING MONSTERS
+  m_Text: 'PRESS ARROW KEYS TO MOVE. AVOID MONSTERS AND RECORD THE HIGHEST POSSIBLE
+    SCORE
 
 
-    PRESS THE ESC KEY TO PAUSE GAME
-
-
-    REACH FOR THE HIGHEST SCORE'
+    PRESS THE ESC KEY TO PAUSE GAME'
 --- !u!222 &664022597
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1472,7 +1470,7 @@ GameObject:
   - component: {fileID: 1038012227}
   - component: {fileID: 1038012226}
   m_Layer: 5
-  m_Name: Reset Score
+  m_Name: Reset Highscore Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1530,7 +1528,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: RESET SCORE
+  m_Text: RESET HIGHSCORE
 --- !u!222 &1038012227
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2729,7 +2727,7 @@ GameObject:
   - component: {fileID: 1797531265}
   - component: {fileID: 1797531264}
   m_Layer: 5
-  m_Name: Credits
+  m_Name: Credits Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2808,7 +2806,7 @@ GameObject:
   - component: {fileID: 1799811625}
   - component: {fileID: 1799811624}
   m_Layer: 5
-  m_Name: Volume
+  m_Name: Volume Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2968,7 +2966,7 @@ GameObject:
   - component: {fileID: 1933400386}
   - component: {fileID: 1933400385}
   m_Layer: 5
-  m_Name: Options
+  m_Name: Options Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3266,7 +3264,7 @@ GameObject:
   - component: {fileID: 2067921988}
   - component: {fileID: 2067921987}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Credits Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3324,7 +3322,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.9
-  m_Text: 'ALL GRAPHIC AND AUDIO CREDITS GOES TO THE LEGEND OF ZELDA GAMES.
+  m_Text: 'ALL GRAPHIC AND AUDIO CREDITS GO TO THE LEGEND OF ZELDA GAMES.
 
 
     THIS PROJECT WAS MADE BY UMAR ALKAFAWEEN, AMIE DENG, SHOHAIB SHAFFIEY, AND ANAND
@@ -3349,7 +3347,7 @@ GameObject:
   - component: {fileID: 2076304960}
   - component: {fileID: 2076304959}
   m_Layer: 5
-  m_Name: Back
+  m_Name: Back Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3428,7 +3426,7 @@ GameObject:
   - component: {fileID: 2094549666}
   - component: {fileID: 2094549665}
   m_Layer: 5
-  m_Name: How to Play
+  m_Name: How to Play Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
