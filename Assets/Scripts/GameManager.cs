@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
   public void lose() {
     recordNewHighscore();
-    SceneManager.LoadScene("Main Menu");
+    SceneManager.LoadScene("Death Menu");
   }
 
   void Awake() {
