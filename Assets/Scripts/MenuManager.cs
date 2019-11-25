@@ -10,7 +10,6 @@ public class MenuManager : MonoBehaviour
     // Outlets
     public GameObject mainMenu;
     public GameObject optionsMenu;
-    public GameObject creditsMenu;
 
     // Methods
     void Awake()
@@ -40,7 +39,6 @@ public class MenuManager : MonoBehaviour
         // Turn off all menus
         mainMenu.SetActive(false);
         optionsMenu.SetActive(false);
-        creditsMenu.SetActive(false);
 
         // Turn on requested menu
         someMenu.SetActive(true);
@@ -61,20 +59,8 @@ public class MenuManager : MonoBehaviour
         SwitchMenu(optionsMenu);
     }
 
-    public void ShowCreditsMenu()
-    {
-        SwitchMenu(creditsMenu);
-    }
-
-    public void resetHighscore()
-    {
-        GameManager.instance.resetHighscore();
-    }
-
     public void QuitGame()
     {
-        //Debug.Log("QUIT");
-        //Application.Quit();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Main Menu");
     }
 }

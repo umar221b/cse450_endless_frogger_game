@@ -17,6 +17,7 @@ class PlayerController : MonoBehaviour
     Horizontal,
     Vertical
   };
+
   private Orientation gridOrientation = Orientation.Vertical;
   private MonsterManager monsterManager;
   private Vector2 input;
@@ -25,19 +26,18 @@ class PlayerController : MonoBehaviour
   private Vector3 endPosition;
   private float t;
   private float factor = 1f;
+  private bool firstScreenScanned = false;
 
   int counter = 0;
   int counterMax = 0;
 
-  void Start()
-  {
+  void Start() {
     anim = GetComponent<Animator>();
     mainCamera = GameManager.instance.getMainCamera();
     monsterManager = GameManager.instance.getMonsterManager();
   }
 
-  public void Update()
-  {
+  public void Update() {
     if(GameManager.instance.gamePaused())
     return;
 
@@ -79,26 +79,24 @@ class PlayerController : MonoBehaviour
   public void LateUpdate() {
     Vector3 cameraPosition = mainCamera.transform.position;
     float cameraHeight = mainCamera.GetComponent<Camera>().orthographicSize;
+    if (!firstScreenScanned) {
+      moveAStarGrid(mainCamera.transform.position);
+      firstScreenScanned = true;
+    }
     if (transform.position.y > cameraPosition.y + cameraHeight) {
-      //Destroy(GameObject.FindGameObjectWithTag("Keese"));
-      //   GameManager.instance.Astar.GetComponent<AstarPath>().graphs.GetValue.GetComponentInParent
       monsterManager.MoveSpawnPoints(1);
       mainCamera.transform.position = cameraPosition + new Vector3(0, 16f, 0);
-      moveAStarGrid(mainCamera.transform.position);
       int newActiveWorldPart = GameManager.instance.getActiveWorldPart();
       if (newActiveWorldPart > 1 && activeWorldPart != newActiveWorldPart) {
         GameManager.instance.generateNextWorldPart();
         activeWorldPart = newActiveWorldPart;
       }
+      moveAStarGrid(mainCamera.transform.position);
     }
-
     else if (transform.position.y < cameraPosition.y - cameraHeight) {
-
-      //Destroy(GameObject.FindGameObjectWithTag("Keese"));
       monsterManager.MoveSpawnPoints(-1);
       mainCamera.transform.position = cameraPosition - new Vector3(0, 16f, 0);
       moveAStarGrid(mainCamera.transform.position);
-
     }
   }
 
