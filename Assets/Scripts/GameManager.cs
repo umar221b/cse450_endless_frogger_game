@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
 
   public void lose() {
     recordNewHighscore();
+    // record recent score to show it on the death menu
+    PlayerPrefs.SetInt("score", score);
     SceneManager.LoadScene("Death Menu");
   }
 
