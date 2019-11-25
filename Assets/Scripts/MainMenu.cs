@@ -12,6 +12,6 @@ public class MainMenu : MonoBehaviour
 
   public void resetHighscore()
   {
-      GameManager.instance.resetHighscore();
+      PlayerPrefs.SetInt("highscore", 0);
   }
 }
