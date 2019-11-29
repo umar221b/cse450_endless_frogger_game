@@ -2008,6 +2008,9 @@ MonoBehaviour:
   - {fileID: 3163769163875544331, guid: 8bd71f16c703142e0bebd6da6fd52415, type: 3}
   - {fileID: 4576298233224282093, guid: 8660d01d3d1f44c9fbd5944828be902b, type: 3}
   - {fileID: 8731703371179024911, guid: 901a201f187c74a67a856f55b10900b6, type: 3}
+  - {fileID: 8355670972066251120, guid: b8b3b3f091a404621bd11adc98f31afe, type: 3}
+  - {fileID: 8862418194523559778, guid: 33175aa52c587421780da83f02027d27, type: 3}
+  - {fileID: 1944647721720610677, guid: 9e267be30ce6c4459a6070b7fd55e87c, type: 3}
   spawnPoint: {fileID: 1759277492930092153, guid: d66d3891b5e4f496fb7ee6d6e07c2d4b,
     type: 3}
   minSpawnDelay: 1
