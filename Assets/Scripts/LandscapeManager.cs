@@ -132,11 +132,42 @@ public class LandscapeManager : MonoBehaviour
       return 'N';
   }
 
-  void connectPath(int rowNum) {
+  void connectPathRight(int rowNum) {
     List<int> nIndices = new List<int>();
     for (int i = 1; i < COLS - 1; ++i) {
       bool seenP = false;
       for (int j = i; j < COLS - 1; ++j) {
+        bool breakFromJLoop = false;
+        switch (cellType[rowNum, j]) {
+          case 'X':
+          if (seenP) {
+            foreach (int nIndex in nIndices) {
+              cellType[rowNum, nIndex] = 'P';
+            }
+          }
+          nIndices.Clear();
+          i = j;
+          breakFromJLoop = true;
+          break;
+          case 'N':
+          nIndices.Add(j);
+          break;
+          case 'P':
+          seenP = true;
+          break;
+        }
+        if (breakFromJLoop)
+        break;
+      }
+    }
+  }
+
+
+  void connectPathLeft(int rowNum) {
+    List<int> nIndices = new List<int>();
+    for (int i = COLS - 2; i >= 1; --i) {
+      bool seenP = false;
+      for (int j = i; j >= 1; --j) {
         bool breakFromJLoop = false;
         switch (cellType[rowNum, j]) {
           case 'X':
@@ -238,7 +269,8 @@ public class LandscapeManager : MonoBehaviour
     }
     for (int i = part * TOTAL_ROWS / NUM_OF_PARTS; i < TOTAL_ROWS / NUM_OF_PARTS * (part + 1); ++i) {
       world[i] = buildRow(i + 1);
-      connectPath(i + 1);
+      connectPathRight(i + 1);
+      connectPathLeft(i + 1);
     }
 
   }
