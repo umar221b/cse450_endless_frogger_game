@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MonsterManager : MonoBehaviour
 {
+    public int[] monsterProbabilities;
+
     public GameObject[] monsters;
     public GameObject spawnPoint;
 
@@ -65,7 +67,23 @@ public class MonsterManager : MonoBehaviour
           spawnPointTransform = spawnPointsLeft[randSpawnPointNumber].transform;
         else
           spawnPointTransform = spawnPointsRight[randSpawnPointNumber - spawnPointsLeft.Length].transform;
-        GameObject curMonster = Instantiate(monsters[Random.Range(0, monsters.Length)], spawnPointTransform.position, Quaternion.identity);
+
+        int monsterProbSum = 0;
+
+        foreach (int monsterProb in monsterProbabilities) monsterProbSum += monsterProb;
+
+        int monsterIndex = Random.Range(0, monsterProbSum);
+        int sumSoFar = 0;
+
+        for (int i = 0; i < monsterProbabilities.Length; ++i) {
+          sumSoFar += monsterProbabilities[i];
+          if (sumSoFar >= monsterIndex) {
+            monsterIndex = i;
+            break;
+          }
+        }
+
+        GameObject curMonster = Instantiate(monsters[monsterIndex], spawnPointTransform.position, Quaternion.identity);
 
         Destroy(curMonster, 10f);
         StartCoroutine("MonsterSpawnTimer");
